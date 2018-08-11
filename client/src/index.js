@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet';
 import { ApplicationDescription, ApplicationTitle } from './constants';
 import { App } from './containers';
 import registerServiceWorker from './register-service-worker';
-import './styles/index.css';
+import './scss/index.css';
 
 const rootComponent = (
   <React.Fragment>
