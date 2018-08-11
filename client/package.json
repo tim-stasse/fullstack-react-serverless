@@ -16,6 +16,7 @@
   "scripts": {
     "build": "react-scripts build",
     "lint-staged": "lint-staged",
+    "precommit": "lint-staged",
     "start": "react-scripts start",
     "test": "react-scripts test --env=jsdom"
   }
