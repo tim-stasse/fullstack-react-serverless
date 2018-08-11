@@ -1,9 +1,10 @@
+// @flow
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Helmet } from 'react-helmet';
 import { ApplicationDescription, ApplicationTitle } from './constants';
 import { App } from './containers';
-import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from './register-service-worker';
 import './index.css';
 
 const rootComponent = (
@@ -18,6 +19,8 @@ const rootComponent = (
 
 const rootElement = document.getElementById('root');
 
-ReactDOM.render(rootComponent, rootElement);
+if (rootElement) {
+  ReactDOM.render(rootComponent, rootElement);
+}
 
 registerServiceWorker();

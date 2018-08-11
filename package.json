@@ -1,0 +1,15 @@
+{
+  "name": "fullstack-react-serverless",
+  "version": "0.1.0",
+  "repository": "https://github.com/tim-stasse/fullstack-react-serverless.git",
+  "author": "Tim Stasse <tjstasse@agiledigital.com.au>",
+  "license": "MIT",
+  "devDependencies": {
+    "flow-bin": "^0.78.0",
+    "flow-typed": "^2.5.1"
+  },
+  "scripts": {
+    "flow": "flow",
+    "flow-typed": "flow-typed"
+  }
+}
