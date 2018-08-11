@@ -17,6 +17,7 @@
   },
   "scripts": {
     "build": "react-scripts build",
+    "flow": "cd .. && yarn flow",
     "lint-staged": "lint-staged",
     "precommit": "lint-staged",
     "prepush": "cross-env CI=true run-s flow test",

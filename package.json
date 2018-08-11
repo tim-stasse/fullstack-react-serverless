@@ -9,7 +9,9 @@
     "flow-typed": "^2.5.1"
   },
   "scripts": {
+    "build-client": "cd ./client && yarn build",
     "flow": "flow",
-    "flow-typed": "flow-typed"
+    "flow-typed": "flow-typed",
+    "start-client": "cd ./client && yarn start"
   }
 }
