@@ -1,1 +1,7 @@
+$image-path: '../images';
+$image-path1: $image-path;
+
 @import '../../../node_modules/bootstrap/scss/_variables';
+@import '_mdb_colors';
+@import '../../../node_modules/mdbootstrap/scss/core/bootstrap/_variables';
+@import '../../../node_modules/mdbootstrap/scss/core/_variables';

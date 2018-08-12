@@ -4,6 +4,7 @@
   "license": "MIT",
   "dependencies": {
     "bootstrap": "^4.1.3",
+    "mdbootstrap": "^4.5.8",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-helmet": "^5.2.0",
