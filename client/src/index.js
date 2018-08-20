@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Helmet } from 'react-helmet';
 import { ApplicationDescription, ApplicationTitle } from './constants';
-import { App } from './containers';
+import { RouteLayout } from './route-layout';
 import registerServiceWorker from './register-service-worker';
 import './scss/index.css';
 
@@ -13,7 +13,7 @@ const rootComponent = (
       <title>{ApplicationTitle}</title>
       <meta name="description" content={ApplicationDescription} />
     </Helmet>
-    <App />
+    <RouteLayout />
   </React.Fragment>
 );
 

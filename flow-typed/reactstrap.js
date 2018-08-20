@@ -322,7 +322,7 @@ declare module "reactstrap" {
 
   declare type ContainerProps = {
     ...StandardProps,
-    fluid: boolean
+    fluid?: boolean
   };
 
   declare export var Container: React$StatelessFunctionalComponent<
@@ -385,10 +385,10 @@ declare module "reactstrap" {
 
   declare type DropdownMenuProps = {
     ...StandardProps,
-    right: boolean,
-    flip: boolean,
-    modifiers: Object,
-    persist: boolean
+    right?: boolean,
+    flip?: boolean,
+    modifiers?: Object,
+    persist?: boolean
   };
 
   declare export var DropdownMenu: React$StatelessFunctionalComponent<
