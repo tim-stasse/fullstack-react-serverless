@@ -1,4 +1,4 @@
 // @flow
-export const ApplicationTitle = 'Fullstack React Serverless';
+export const applicationTitle = 'Fullstack React Serverless';
 
-export const ApplicationDescription = 'Serverless React project boilerplate';
+export const applicationDescription = 'Serverless React project boilerplate';
