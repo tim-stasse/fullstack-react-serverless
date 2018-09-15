@@ -1,4 +1,12 @@
 declare module "reactstrap" {
+  import type {
+    Component,
+    ElementType,
+    Node,
+    Ref,
+    StatelessFunctionalComponent
+  } from "react";
+
   declare type EndHandler = (node: HTMLElement, done: () => void) => void;
   declare type EnterHandler = (node: HTMLElement, isAppearing: boolean) => void;
   declare type ExitHandler = (node: HTMLElement) => void;
@@ -26,7 +34,7 @@ declare module "reactstrap" {
 
   declare type StandardProps = {
     ...CssProps,
-    tag?: React$ElementType
+    tag?: ElementType
   };
 
   declare type AlertProps = {
@@ -38,10 +46,10 @@ declare module "reactstrap" {
     isOpen?: boolean,
     toggle?: Function,
     transition?: $Shape<FadeProps>,
-    innerRef?: React$Ref<*>
+    innerRef?: Ref<*>
   };
 
-  declare export var Alert: React$StatelessFunctionalComponent<AlertProps>;
+  declare export var Alert: StatelessFunctionalComponent<AlertProps>;
 
   declare type BadgeProps = {
     ...StandardProps,
@@ -49,25 +57,23 @@ declare module "reactstrap" {
     pill?: boolean
   };
 
-  declare export var Badge: React$StatelessFunctionalComponent<BadgeProps>;
+  declare export var Badge: StatelessFunctionalComponent<BadgeProps>;
 
   declare type BreadcrumbProps = {
     ...StandardProps,
-    listTag?: React$ElementType,
+    listTag?: ElementType,
     listClassName?: string,
     "aria-label"?: string
   };
 
-  declare export var Breadcrumb: React$StatelessFunctionalComponent<
-    BreadcrumbProps
-  >;
+  declare export var Breadcrumb: StatelessFunctionalComponent<BreadcrumbProps>;
 
   declare type BreadcrumbItemProps = {
     ...StandardProps,
     active?: boolean
   };
 
-  declare export var BreadcrumbItem: React$StatelessFunctionalComponent<
+  declare export var BreadcrumbItem: StatelessFunctionalComponent<
     BreadcrumbItemProps
   >;
 
@@ -78,19 +84,18 @@ declare module "reactstrap" {
     color?: string,
     disabled?: boolean,
     outline?: boolean,
-    innerRef?: React$Ref<*>,
+    innerRef?: Ref<*>,
     onClick?: Function,
     size?: string
   };
 
-  declare class Button extends React$Component<ButtonProps> {}
-  declare export var Button: typeof Button;
+  declare export var Button: Class<Component<ButtonProps>>;
 
   declare type ButtonDropdownProps = {
     ...$Diff<DropdownProps, { group: boolean }>
   };
 
-  declare export var ButtonDropdown: React$StatelessFunctionalComponent<
+  declare export var ButtonDropdown: StatelessFunctionalComponent<
     ButtonDropdownProps
   >;
 
@@ -102,7 +107,7 @@ declare module "reactstrap" {
     vertical?: boolean
   };
 
-  declare export var ButtonGroup: React$StatelessFunctionalComponent<
+  declare export var ButtonGroup: StatelessFunctionalComponent<
     ButtonGroupProps
   >;
 
@@ -112,7 +117,7 @@ declare module "reactstrap" {
     role?: string
   };
 
-  declare export var ButtonToolbar: React$StatelessFunctionalComponent<
+  declare export var ButtonToolbar: StatelessFunctionalComponent<
     ButtonToolbarProps
   >;
 
@@ -122,24 +127,22 @@ declare module "reactstrap" {
     color?: string,
     body?: boolean,
     outline?: boolean,
-    innerRef?: React$Ref<*>
+    innerRef?: Ref<*>
   };
 
-  declare export var Card: React$StatelessFunctionalComponent<CardProps>;
+  declare export var Card: StatelessFunctionalComponent<CardProps>;
 
   declare type CardBodyProps = {
     ...StandardProps
   };
 
-  declare export var CardBody: React$StatelessFunctionalComponent<
-    CardBodyProps
-  >;
+  declare export var CardBody: StatelessFunctionalComponent<CardBodyProps>;
 
   declare type CardColumnsProps = {
     ...StandardProps
   };
 
-  declare export var CardColumns: React$StatelessFunctionalComponent<
+  declare export var CardColumns: StatelessFunctionalComponent<
     CardColumnsProps
   >;
 
@@ -147,33 +150,25 @@ declare module "reactstrap" {
     ...StandardProps
   };
 
-  declare export var CardDeck: React$StatelessFunctionalComponent<
-    CardDeckProps
-  >;
+  declare export var CardDeck: StatelessFunctionalComponent<CardDeckProps>;
 
   declare type CardFooterProps = {
     ...StandardProps
   };
 
-  declare export var CardFooter: React$StatelessFunctionalComponent<
-    CardFooterProps
-  >;
+  declare export var CardFooter: StatelessFunctionalComponent<CardFooterProps>;
 
   declare type CardGroupProps = {
     ...StandardProps
   };
 
-  declare export var CardGroup: React$StatelessFunctionalComponent<
-    CardGroupProps
-  >;
+  declare export var CardGroup: StatelessFunctionalComponent<CardGroupProps>;
 
   declare type CardHeaderProps = {
     ...StandardProps
   };
 
-  declare export var CardHeader: React$StatelessFunctionalComponent<
-    CardHeaderProps
-  >;
+  declare export var CardHeader: StatelessFunctionalComponent<CardHeaderProps>;
 
   declare type CardImgProps = {
     ...StandardProps,
@@ -181,30 +176,28 @@ declare module "reactstrap" {
     bottom?: boolean
   };
 
-  declare export var CardImg: React$StatelessFunctionalComponent<CardImgProps>;
+  declare export var CardImg: StatelessFunctionalComponent<CardImgProps>;
 
   declare type CardImgOverlayProps = {
     ...StandardProps
   };
 
-  declare export var CardImgOverlay: React$StatelessFunctionalComponent<
+  declare export var CardImgOverlay: StatelessFunctionalComponent<
     CardImgOverlayProps
   >;
 
   declare type CardLinkProps = {
     ...StandardProps,
-    innerRef?: React$Ref<*>
+    innerRef?: Ref<*>
   };
 
-  declare export var CardLink: React$StatelessFunctionalComponent<
-    CardLinkProps
-  >;
+  declare export var CardLink: StatelessFunctionalComponent<CardLinkProps>;
 
   declare type CardSubtitleProps = {
     ...StandardProps
   };
 
-  declare export var CardSubtitle: React$StatelessFunctionalComponent<
+  declare export var CardSubtitle: StatelessFunctionalComponent<
     CardSubtitleProps
   >;
 
@@ -212,17 +205,13 @@ declare module "reactstrap" {
     ...StandardProps
   };
 
-  declare export var CardText: React$StatelessFunctionalComponent<
-    CardTextProps
-  >;
+  declare export var CardText: StatelessFunctionalComponent<CardTextProps>;
 
   declare type CardTitleProps = {
     ...StandardProps
   };
 
-  declare export var CardTitle: React$StatelessFunctionalComponent<
-    CardTitleProps
-  >;
+  declare export var CardTitle: StatelessFunctionalComponent<CardTitleProps>;
 
   declare type CarouselProps = {
     ...CssProps,
@@ -242,8 +231,7 @@ declare module "reactstrap" {
     direction: string
   };
 
-  declare class Carousel extends React$Component<DropdownProps> {}
-  declare export var Carousel: typeof Carousel;
+  declare export var Carousel: Class<Component<CarouselProps>>;
 
   declare type CarouselCaptionProps = {
     ...CssProps,
@@ -251,7 +239,7 @@ declare module "reactstrap" {
     captionText: string
   };
 
-  declare export var CarouselCaption: React$StatelessFunctionalComponent<
+  declare export var CarouselCaption: StatelessFunctionalComponent<
     CarouselCaptionProps
   >;
 
@@ -262,7 +250,7 @@ declare module "reactstrap" {
     directionText?: string
   };
 
-  declare export var CarouselControl: React$StatelessFunctionalComponent<
+  declare export var CarouselControl: StatelessFunctionalComponent<
     CarouselControlProps
   >;
 
@@ -273,7 +261,7 @@ declare module "reactstrap" {
     onClickHandler: Function
   };
 
-  declare export var CarouselIndicators: React$StatelessFunctionalComponent<
+  declare export var CarouselIndicators: StatelessFunctionalComponent<
     CarouselIndicatorsProps
   >;
 
@@ -284,8 +272,7 @@ declare module "reactstrap" {
     slide?: boolean
   };
 
-  declare class CarouselItem extends React$Component<CarouselItemProps> {}
-  declare export var CarouselItem: typeof CarouselItem;
+  declare export var CarouselItem: Class<Component<CarouselItemProps>>;
 
   declare type Column =
     | boolean
@@ -307,41 +294,38 @@ declare module "reactstrap" {
     widths?: Array<string>
   };
 
-  declare export var Col: React$StatelessFunctionalComponent<ColProps>;
+  declare export var Col: StatelessFunctionalComponent<ColProps>;
 
   declare type CollapseProps = {
     ...TransitionProps,
     ...StandardProps,
     isOpen?: boolean,
     navbar?: boolean,
-    innerRef?: React$Ref<*>
+    innerRef?: Ref<*>
   };
 
-  declare class Collapse extends React$Component<CollapseProps> {}
-  declare export var Collapse: typeof Collapse;
+  declare export var Collapse: Class<Component<CollapseProps>>;
 
   declare type ContainerProps = {
     ...StandardProps,
     fluid?: boolean
   };
 
-  declare export var Container: React$StatelessFunctionalComponent<
-    ContainerProps
-  >;
+  declare export var Container: StatelessFunctionalComponent<ContainerProps>;
 
   declare type CustomInputProps = {
     ...CssProps,
     id: string | number,
     type: string,
-    label?: React$Node,
+    label?: Node,
     inline?: boolean,
     valid?: boolean,
     invalid?: boolean,
     bsSize?: string,
-    innerRef?: React$Ref<*>
+    innerRef?: Ref<*>
   };
 
-  declare export var CustomInput: React$StatelessFunctionalComponent<
+  declare export var CustomInput: StatelessFunctionalComponent<
     CustomInputProps
   >;
 
@@ -367,8 +351,7 @@ declare module "reactstrap" {
     inNavbar: boolean
   };
 
-  declare class Dropdown extends React$Component<DropdownProps> {}
-  declare export var Dropdown: typeof Dropdown;
+  declare export var Dropdown: Class<Component<DropdownProps>>;
 
   declare type DropdownItemProps = {
     ...StandardProps,
@@ -380,8 +363,7 @@ declare module "reactstrap" {
     toggle?: boolean
   };
 
-  declare class DropdownItem extends React$Component<DropdownItemProps> {}
-  declare export var DropdownItem: typeof DropdownItem;
+  declare export var DropdownItem: Class<Component<DropdownItemProps>>;
 
   declare type DropdownMenuProps = {
     ...StandardProps,
@@ -391,7 +373,7 @@ declare module "reactstrap" {
     persist?: boolean
   };
 
-  declare export var DropdownMenu: React$StatelessFunctionalComponent<
+  declare export var DropdownMenu: StatelessFunctionalComponent<
     DropdownMenuProps
   >;
 
@@ -406,27 +388,25 @@ declare module "reactstrap" {
     nav?: boolean
   };
 
-  declare class DropdownToggle extends React$Component<DropdownToggleProps> {}
-  declare export var DropdownToggle: typeof DropdownToggle;
+  declare export var DropdownToggle: Class<Component<DropdownToggleProps>>;
 
   declare type FadeProps = {
     ...TransitionProps,
     ...StandardProps,
     baseClass?: string,
     baseClassActive?: string,
-    innerRef?: React$Ref<*>
+    innerRef?: Ref<*>
   };
 
-  declare export var Fade: React$StatelessFunctionalComponent<FadeProps>;
+  declare export var Fade: StatelessFunctionalComponent<FadeProps>;
 
   declare type FormProps = {
     ...StandardProps,
     inline?: boolean,
-    innerRef?: React$Ref<*>
+    innerRef?: Ref<*>
   };
 
-  declare class Form extends React$Component<FormProps> {}
-  declare export var Form: typeof Form;
+  declare export var Form: Class<Component<FormProps>>;
 
   declare type FormFeedbackProps = {
     ...StandardProps,
@@ -434,7 +414,7 @@ declare module "reactstrap" {
     tooltip?: boolean
   };
 
-  declare export var FormFeedback: React$StatelessFunctionalComponent<
+  declare export var FormFeedback: StatelessFunctionalComponent<
     FormFeedbackProps
   >;
 
@@ -446,9 +426,7 @@ declare module "reactstrap" {
     disabled?: boolean
   };
 
-  declare export var FormGroup: React$StatelessFunctionalComponent<
-    FormGroupProps
-  >;
+  declare export var FormGroup: StatelessFunctionalComponent<FormGroupProps>;
 
   declare type FormTextProps = {
     ...StandardProps,
@@ -456,9 +434,7 @@ declare module "reactstrap" {
     color?: string
   };
 
-  declare export var FormText: React$StatelessFunctionalComponent<
-    FormTextProps
-  >;
+  declare export var FormText: StatelessFunctionalComponent<FormTextProps>;
 
   declare type InputProps = {
     ...StandardProps,
@@ -467,29 +443,26 @@ declare module "reactstrap" {
     bsSize?: string,
     valid?: boolean,
     invalid?: boolean,
-    innerRef?: React$Ref<*>,
+    innerRef?: Ref<*>,
     plaintext?: boolean,
     addon?: boolean
   };
 
-  declare class Input extends React$Component<InputProps> {}
-  declare export var Input: typeof Input;
+  declare export var Input: Class<Component<InputProps>>;
 
   declare type InputGroupProps = {
     ...StandardProps,
     size?: string
   };
 
-  declare export var InputGroup: React$StatelessFunctionalComponent<
-    InputGroupProps
-  >;
+  declare export var InputGroup: StatelessFunctionalComponent<InputGroupProps>;
 
   declare type InputGroupAddonProps = {
     ...StandardProps,
     addonType: "prepend" | "append"
   };
 
-  declare export var InputGroupAddon: React$StatelessFunctionalComponent<
+  declare export var InputGroupAddon: StatelessFunctionalComponent<
     InputGroupAddonProps
   >;
 
@@ -500,7 +473,7 @@ declare module "reactstrap" {
     groupAttributes?: Object
   };
 
-  declare export var InputGroupButton: React$StatelessFunctionalComponent<
+  declare export var InputGroupButton: StatelessFunctionalComponent<
     InputGroupButtonProps
   >;
 
@@ -509,7 +482,7 @@ declare module "reactstrap" {
     addonType: "prepend" | "append"
   };
 
-  declare export var InputGroupButtonDropdown: React$StatelessFunctionalComponent<
+  declare export var InputGroupButtonDropdown: StatelessFunctionalComponent<
     InputGroupButtonDropdownProps
   >;
 
@@ -517,7 +490,7 @@ declare module "reactstrap" {
     ...StandardProps
   };
 
-  declare export var InputGroupText: React$StatelessFunctionalComponent<
+  declare export var InputGroupText: StatelessFunctionalComponent<
     InputGroupTextProps
   >;
 
@@ -526,9 +499,7 @@ declare module "reactstrap" {
     fluid?: boolean
   };
 
-  declare export var Jumbotron: React$StatelessFunctionalComponent<
-    JumbotronProps
-  >;
+  declare export var Jumbotron: StatelessFunctionalComponent<JumbotronProps>;
 
   declare type LabelProps = {
     ...$Exact<ColProps>,
@@ -538,16 +509,14 @@ declare module "reactstrap" {
     for?: string
   };
 
-  declare export var Label: React$StatelessFunctionalComponent<LabelProps>;
+  declare export var Label: StatelessFunctionalComponent<LabelProps>;
 
   declare type ListGroupProps = {
     ...StandardProps,
     flush?: boolean
   };
 
-  declare export var ListGroup: React$StatelessFunctionalComponent<
-    ListGroupProps
-  >;
+  declare export var ListGroup: StatelessFunctionalComponent<ListGroupProps>;
 
   declare type ListGroupItemProps = {
     ...StandardProps,
@@ -557,7 +526,7 @@ declare module "reactstrap" {
     action?: boolean
   };
 
-  declare export var ListGroupItem: React$StatelessFunctionalComponent<
+  declare export var ListGroupItem: StatelessFunctionalComponent<
     ListGroupItemProps
   >;
 
@@ -565,7 +534,7 @@ declare module "reactstrap" {
     ...StandardProps
   };
 
-  declare export var ListGroupItemHeading: React$StatelessFunctionalComponent<
+  declare export var ListGroupItemHeading: StatelessFunctionalComponent<
     ListGroupItemHeadingProps
   >;
 
@@ -573,7 +542,7 @@ declare module "reactstrap" {
     ...StandardProps
   };
 
-  declare export var ListGroupItemText: React$StatelessFunctionalComponent<
+  declare export var ListGroupItemText: StatelessFunctionalComponent<
     ListGroupItemTextProps
   >;
 
@@ -590,7 +559,7 @@ declare module "reactstrap" {
     top?: boolean
   };
 
-  declare export var Media: React$StatelessFunctionalComponent<MediaProps>;
+  declare export var Media: StatelessFunctionalComponent<MediaProps>;
 
   declare type ModalProps = {
     ...CssProps,
@@ -611,30 +580,27 @@ declare module "reactstrap" {
     modalClassName?: string,
     backdropClassName?: string,
     contentClassName?: string,
-    external?: React$Node,
+    external?: Node,
     fade?: boolean,
     zIndex?: number | string,
     backdropTransition?: $Shape<FadeProps>,
     modalTransition?: $Shape<FadeProps>,
-    innerRef?: React$Ref<*>
+    innerRef?: Ref<*>
   };
 
-  declare class Modal extends React$Component<ModalProps> {}
-  declare export var Modal: typeof Modal;
+  declare export var Modal: Class<Component<ModalProps>>;
 
   declare type ModalBodyProps = {
     ...StandardProps
   };
 
-  declare export var ModalBody: React$StatelessFunctionalComponent<
-    ModalBodyProps
-  >;
+  declare export var ModalBody: StatelessFunctionalComponent<ModalBodyProps>;
 
   declare type ModalFooterProps = {
     ...StandardProps
   };
 
-  declare export var ModalFooter: React$StatelessFunctionalComponent<
+  declare export var ModalFooter: StatelessFunctionalComponent<
     ModalFooterProps
   >;
 
@@ -645,7 +611,7 @@ declare module "reactstrap" {
     closeAriaLabel?: string
   };
 
-  declare export var ModalHeader: React$StatelessFunctionalComponent<
+  declare export var ModalHeader: StatelessFunctionalComponent<
     ModalHeaderProps
   >;
 
@@ -661,26 +627,25 @@ declare module "reactstrap" {
     card?: boolean
   };
 
-  declare export var Nav: React$StatelessFunctionalComponent<NavProps>;
+  declare export var Nav: StatelessFunctionalComponent<NavProps>;
 
   declare type NavItemProps = {
     ...StandardProps,
     active?: boolean
   };
 
-  declare export var NavItem: React$StatelessFunctionalComponent<NavItemProps>;
+  declare export var NavItem: StatelessFunctionalComponent<NavItemProps>;
 
   declare type NavLinkProps = {
     ...StandardProps,
-    innerRef?: React$Ref<*>,
+    innerRef?: Ref<*>,
     disabled?: boolean,
     active?: boolean,
     onClick?: Function,
     href?: any
   };
 
-  declare class NavLink extends React$Component<NavLinkProps> {}
-  declare export var NavLink: typeof NavLink;
+  declare export var NavLink: Class<Component<NavLinkProps>>;
 
   declare type NavbarProps = {
     ...StandardProps,
@@ -694,13 +659,13 @@ declare module "reactstrap" {
     expand?: boolean | string
   };
 
-  declare export var Navbar: React$StatelessFunctionalComponent<NavbarProps>;
+  declare export var Navbar: StatelessFunctionalComponent<NavbarProps>;
 
   declare type NavbarBrandProps = {
     ...StandardProps
   };
 
-  declare export var NavbarBrand: React$StatelessFunctionalComponent<
+  declare export var NavbarBrand: StatelessFunctionalComponent<
     NavbarBrandProps
   >;
 
@@ -709,7 +674,7 @@ declare module "reactstrap" {
     type?: string
   };
 
-  declare export var NavbarToggler: React$StatelessFunctionalComponent<
+  declare export var NavbarToggler: StatelessFunctionalComponent<
     NavbarTogglerProps
   >;
 
@@ -721,9 +686,7 @@ declare module "reactstrap" {
     "aria-label"?: string
   };
 
-  declare export var Pagination: React$StatelessFunctionalComponent<
-    PaginationProps
-  >;
+  declare export var Pagination: StatelessFunctionalComponent<PaginationProps>;
 
   declare type PaginationItemProps = {
     ...StandardProps,
@@ -731,7 +694,7 @@ declare module "reactstrap" {
     disabled?: boolean
   };
 
-  declare export var PaginationItem: React$StatelessFunctionalComponent<
+  declare export var PaginationItem: StatelessFunctionalComponent<
     PaginationItemProps
   >;
 
@@ -742,7 +705,7 @@ declare module "reactstrap" {
     previous?: boolean
   };
 
-  declare export var PaginationLink: React$StatelessFunctionalComponent<
+  declare export var PaginationLink: StatelessFunctionalComponent<
     PaginationLinkProps
   >;
 
@@ -779,14 +742,13 @@ declare module "reactstrap" {
     offset?: string | number
   };
 
-  declare class Popover extends React$Component<PopoverProps> {}
-  declare export var Popover: typeof Popover;
+  declare export var Popover: Class<Component<PopoverProps>>;
 
   declare type PopoverBodyProps = {
     ...StandardProps
   };
 
-  declare export var PopoverBody: React$StatelessFunctionalComponent<
+  declare export var PopoverBody: StatelessFunctionalComponent<
     PopoverBodyProps
   >;
 
@@ -794,7 +756,7 @@ declare module "reactstrap" {
     ...StandardProps
   };
 
-  declare export var PopoverHeader: React$StatelessFunctionalComponent<
+  declare export var PopoverHeader: StatelessFunctionalComponent<
     PopoverHeaderProps
   >;
 
@@ -821,14 +783,13 @@ declare module "reactstrap" {
     popperManager: Object
   };
 
-  declare class PopperContent extends React$Component<PopperContentProps> {}
-  declare export var PopperContent: typeof PopperContent;
+  declare export var PopperContent: Class<Component<PopperContentProps>>;
 
   declare type PopperTargetHelperProps = {
     target: string | Function | Element
   };
 
-  declare export var PopperTargetHelper: React$StatelessFunctionalComponent<
+  declare export var PopperTargetHelper: StatelessFunctionalComponent<
     PopperTargetHelperProps
   >;
 
@@ -836,8 +797,7 @@ declare module "reactstrap" {
     node?: any
   };
 
-  declare class Portal extends React$Component<PortalProps> {}
-  declare export var Portal: typeof Portal;
+  declare export var Portal: Class<Component<PortalProps>>;
 
   declare type ProgressProps = {
     ...StandardProps,
@@ -851,16 +811,14 @@ declare module "reactstrap" {
     barClassName?: string
   };
 
-  declare export var Progress: React$StatelessFunctionalComponent<
-    ProgressProps
-  >;
+  declare export var Progress: StatelessFunctionalComponent<ProgressProps>;
 
   declare type RowProps = {
     ...StandardProps,
     noGutters?: boolean
   };
 
-  declare export var Row: React$StatelessFunctionalComponent<RowProps>;
+  declare export var Row: StatelessFunctionalComponent<RowProps>;
 
   declare type TabContentProps = {
     ...StandardProps,
@@ -871,15 +829,14 @@ declare module "reactstrap" {
     activeTabId?: any
   };
 
-  declare class TabContent extends React$Component<TabContentProps> {}
-  declare export var TabContent: typeof TabContent;
+  declare export var TabContent: Class<Component<TabContentProps>>;
 
   declare type TabPaneProps = {
     ...StandardProps,
     tabId?: any
   };
 
-  declare export var TabPane: React$StatelessFunctionalComponent<TabPaneProps>;
+  declare export var TabPane: StatelessFunctionalComponent<TabPaneProps>;
 
   declare type TableProps = {
     ...StandardProps,
@@ -893,7 +850,7 @@ declare module "reactstrap" {
     responsiveTag?: Function | string
   };
 
-  declare export var Table: React$StatelessFunctionalComponent<TableProps>;
+  declare export var Table: StatelessFunctionalComponent<TableProps>;
 
   declare type TooltipProps = {
     placement?: PopperPlacement,
@@ -910,32 +867,27 @@ declare module "reactstrap" {
     delay?: $Shape<{ show: number, hide: number }> | number,
     modifiers?: Object,
     offset?: string | number,
-    innerRef?: React$Ref<*>,
+    innerRef?: Ref<*>,
     trigger?: string
   };
 
-  declare class Tooltip extends React$Component<TooltipProps> {}
-  declare export var Tooltip: typeof Tooltip;
+  declare export var Tooltip: Class<Component<TooltipProps>>;
 
   declare type UncontrolledAlertProps = {
     ...$Diff<AlertProps, { isOpen: boolean, toggle: Function }>
   };
 
-  declare class UncontrolledAlert extends React$Component<
-    UncontrolledAlertProps,
-    { isOpen: boolean }
-  > {}
-  declare export var UncontrolledAlert: typeof UncontrolledAlert;
+  declare export var UncontrolledAlert: Class<
+    Component<UncontrolledAlert, { isOpen: boolean }>
+  >;
 
   declare type UncontrolledButtonDropdownProps = {
     ...$Diff<ButtonDropdownProps, { isOpen: boolean, toggle: Function }>
   };
 
-  declare class UncontrolledButtonDropdown extends React$Component<
-    UncontrolledButtonDropdownProps,
-    { isOpen: boolean }
-  > {}
-  declare export var UncontrolledButtonDropdown: typeof UncontrolledButtonDropdown;
+  declare export var UncontrolledButtonDropdown: Class<
+    Component<UncontrolledButtonDropdown, { isOpen: boolean }>
+  >;
 
   declare type UncontrolledCarouselProps = {
     ...$Diff<
@@ -957,11 +909,9 @@ declare module "reactstrap" {
     goToIndex?: Function
   };
 
-  declare class UncontrolledCarousel extends React$Component<
-    UncontrolledCarouselProps,
-    { activeIndex: number }
-  > {}
-  declare export var UncontrolledCarousel: typeof UncontrolledCarousel;
+  declare export var UncontrolledCarousel: Class<
+    Component<UncontrolledCarousel, { activeIndex: number }>
+  >;
 
   declare type UncontrolledCollapseProps = {
     ...$Diff<CollapseProps, { isOpen: boolean }>,
@@ -969,29 +919,23 @@ declare module "reactstrap" {
     toggleEvents?: Array<string>
   };
 
-  declare class UncontrolledCollapse extends React$Component<
-    UncontrolledCollapseProps,
-    { isOpen: boolean }
-  > {}
-  declare export var UncontrolledCollapse: typeof UncontrolledCollapse;
+  declare export var UncontrolledCollapse: Class<
+    Component<UncontrolledCollapse, { isOpen: boolean }>
+  >;
 
   declare type UncontrolledDropdownProps = {
     ...$Diff<DropdownProps, { isOpen: boolean, toggle: Function }>
   };
 
-  declare class UncontrolledDropdown extends React$Component<
-    UncontrolledDropdownProps,
-    { isOpen: boolean }
-  > {}
-  declare export var UncontrolledDropdown: typeof UncontrolledDropdown;
+  declare export var UncontrolledDropdown: Class<
+    Component<UncontrolledDropdown, { isOpen: boolean }>
+  >;
 
   declare type UncontrolledTooltipProps = {
     ...$Diff<TooltipProps, { isOpen: boolean, toggle: Function }>
   };
 
-  declare class UncontrolledTooltip extends React$Component<
-    UncontrolledTooltipProps,
-    { isOpen: boolean }
-  > {}
-  declare export var UncontrolledTooltip: typeof UncontrolledTooltip;
+  declare export var UncontrolledTooltip: Class<
+    Component<UncontrolledTooltip, { isOpen: boolean }>
+  >;
 }

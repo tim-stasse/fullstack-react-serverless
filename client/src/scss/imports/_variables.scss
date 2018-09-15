@@ -5,3 +5,8 @@ $image-path1: $image-path;
 @import '_mdb_colors';
 @import '../../../node_modules/mdbootstrap/scss/core/bootstrap/_variables';
 @import '../../../node_modules/mdbootstrap/scss/core/_variables';
+
+$navbar-height: $navbar-brand-height +
+  ($navbar-brand-padding-y + $navbar-padding-y) * 2;
+
+$footer-height: $spacer * 3.3;

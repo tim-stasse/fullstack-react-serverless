@@ -1,0 +1,8 @@
+@import 'scss/imports/_index';
+
+.app-nav {
+  & + .app-layout {
+    padding-top: $navbar-height;
+    min-height: calc(100% - #{$footer-height});
+  }
+}

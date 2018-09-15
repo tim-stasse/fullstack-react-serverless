@@ -1,0 +1,22 @@
+.navbar {
+  &-brand {
+    img {
+      height: $navbar-brand-height;
+    }
+  }
+
+  .nav-link,
+  .navbar-brand {
+    &:focus,
+    &:hover {
+      text-decoration: underline;
+      outline: 0;
+    }
+  }
+}
+
+a {
+  &.navbar-brand {
+    cursor: pointer;
+  }
+}
