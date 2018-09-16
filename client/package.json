@@ -39,7 +39,7 @@
     "lint-staged": "lint-staged",
     "postbuild": "run-s react-snap script-generate-sw",
     "precommit": "lint-staged",
-    "prepush": "cross-env CI=true run-s flow test",
+    "prepush": "cross-env CI=true test",
     "react-snap": "react-snap",
     "script-generate-sw": "node scripts/generate-sw.js",
     "start": "run-p start-*",
