@@ -1,10 +1,10 @@
 // @flow
 import { mount } from 'enzyme';
 import React from 'react';
-import { Home } from './home';
+import { Footer } from './footer';
 
-describe('<Home />', () => {
+describe('<Footer />', () => {
   it('renders without crashing', () => {
-    mount(<Home />);
+    mount(<Footer />);
   });
 });
