@@ -5,7 +5,7 @@
   "author": "Tim Stasse <tjstasse@agiledigital.com.au>",
   "license": "MIT",
   "devDependencies": {
-    "flow-bin": "^0.78.0",
+    "flow-bin": "0.81.0",
     "flow-typed": "^2.5.1"
   },
   "scripts": {

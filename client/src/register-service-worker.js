@@ -21,7 +21,7 @@ const isLocalhost = Boolean(
     )
 );
 
-export default function register() {
+export default function register(newContentCallback: () => void) {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
     const { origin } = new URL(publicUrl, window.location);
@@ -37,7 +37,7 @@ export default function register() {
 
       if (isLocalhost) {
         // This is running on localhost. Lets check if a service worker still exists or not.
-        checkValidServiceWorker(swUrl);
+        checkValidServiceWorker(swUrl, newContentCallback);
 
         // Add some additional logging to localhost, pointing developers to the
         // service worker/PWA documentation.
@@ -50,13 +50,13 @@ export default function register() {
           });
       } else {
         // Is not local host. Just register service worker
-        registerValidSW(swUrl);
+        registerValidSW(swUrl, newContentCallback);
       }
     });
   }
 }
 
-function registerValidSW(swUrl) {
+function registerValidSW(swUrl, newContentCallback) {
   navigator.serviceWorker &&
     navigator.serviceWorker
       .register(swUrl)
@@ -74,6 +74,8 @@ function registerValidSW(swUrl) {
                 // It's the perfect time to display a "New content is
                 // available; please refresh." message in your web app.
                 console.log('New content is available; please refresh.');
+
+                newContentCallback();
               } else {
                 // At this point, everything has been precached.
                 // It's the perfect time to display a
@@ -89,7 +91,7 @@ function registerValidSW(swUrl) {
       });
 }
 
-function checkValidServiceWorker(swUrl) {
+function checkValidServiceWorker(swUrl, newContentCallback) {
   // Check if the service worker can be found. If it can't reload the page.
   fetch(swUrl)
     .then(response => {
@@ -109,7 +111,7 @@ function checkValidServiceWorker(swUrl) {
           });
       } else {
         // Service worker found. Proceed as normal.
-        registerValidSW(swUrl);
+        registerValidSW(swUrl, newContentCallback);
       }
     })
     .catch(() => {

@@ -1,4 +1,5 @@
 @import 'imports/_index';
-@import '../../node_modules/bootstrap/scss/bootstrap';
-@import '../../node_modules/mdbootstrap/scss/mdb';
+@import 'bootstrap/scss/bootstrap';
+@import 'mdbootstrap/scss/mdb';
+@import 'react-redux-toastr/src/styles/index';
 @import 'styles/_index';
