@@ -95,7 +95,12 @@ declare module "react-redux-toastr" {
       toastrs: Array<Toastr>,
       confirm: ?ToastrConfirm
     },
-    $Values<$ObjMap<typeof actions, <A>(actionCreator: ActionCreator<A>) => A>>
+    $Values<
+      $ObjMap<
+        typeof actions,
+        <A>(actionCreator: ActionCreator<A, *, *, *, *, *, *>) => A
+      >
+    >
   >;
 
   declare export type EmitAddToastr = ((

@@ -32,13 +32,11 @@ declare module "redux" {
     api: MiddlewareAPI<S, A, D>
   ) => (next: D) => D;
 
-  declare export type StoreCreator<S, A, D: Dispatch<A>> = {
-    (
-      reducer: Reducer<S, A>,
-      preloadedState: S,
-      enhancer?: StoreEnhancer<S, A, D>
-    ): Store<S, A, D>
-  };
+  declare export type StoreCreator<S, A, D: Dispatch<A>> = (
+    reducer: Reducer<S, A>,
+    preloadedState: S,
+    enhancer?: StoreEnhancer<S, A, D>
+  ) => Store<S, A, D>;
 
   declare export type StoreEnhancer<S, A, D: Dispatch<A>> = (
     next: StoreCreator<S, A, D>
