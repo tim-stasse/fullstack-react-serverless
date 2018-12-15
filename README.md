@@ -4,24 +4,25 @@ An opinionated seed/boilerplate project that can be used to start new projects w
 
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/tim-stasse/fullstack-react-serverless/master/LICENSE)
 
-## Before you begin
+## Setup
 
-- Install the serverless framework
+- [Setup an AWS account and configure access](https://serverless.com/framework/docs/providers/aws/guide/credentials)
+- run `yarn install-all`
 
-```bash
-yarn global add serverless
-```
+## Local development
 
-- [Setup an AWS account and configure access](https://serverless.com/framework/docs/providers/aws/guide/credentials/)
-
-### Setup
-
-`cd` into each project folder, and run `yarn install`
+run `yarn start-all`
 
 ## client
 
-Generated from [create react app](https://github.com/facebookincubator/create-react-app)
+Generated from [Create React App](https://github.com/facebookincubator/create-react-app)
 
-## server
+### Notable dependencies
 
-Uses the [serverless framework](http://www.serverless.com)
+- [Reactstrap](https://reactstrap.github.io): React [Bootstrap 4](https://getbootstrap.com) component library
+- [MDBootstrap](https://mdbootstrap.com): material design theme for Bootstrap 4
+- [Loadable Components](https://www.smooth-code.com/open-source/loadable-components): React code splitting library
+- [React Helmet](https://github.com/nfl/react-helmet): reusable React component that manages all changes to the document head
+- [React Redux](https://react-redux.js.org): predictable state container
+- [Recompose](https://github.com/acdlite/recompose): React utility belt for function components and higher-order components
+- [React Snap](https://github.com/stereobooster/react-snap): Uses Headless Chrome to crawl all available links starting from the root, and pre-renders the entire application into static HTML.
