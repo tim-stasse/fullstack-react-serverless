@@ -13,12 +13,12 @@ import {
   applicationDescription,
   applicationTitle,
   reactSnapUserAgent
-} from './constants';
+} from '_constants';
+import { configureStore } from '_state/store';
+import { branchFuncs } from '_utils';
 import { RouteLayout } from './route-layout';
 import registerServiceWorker from './register-service-worker';
-import { configureStore } from './state/store';
-import { branchFuncs } from './utils';
-import './scss/index.css';
+import '_scss/index.css';
 
 window.snapSaveState = () => getLoadableState();
 

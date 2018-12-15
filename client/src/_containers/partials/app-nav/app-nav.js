@@ -9,9 +9,9 @@ import {
   NavItem,
   NavLink
 } from 'reactstrap';
-import { withCollapseState } from '../../../components';
-import { routes } from '../../../constants';
-import logo from '../../../images/logo.svg';
+import { withCollapseState } from '_components';
+import { routes } from '_constants';
+import logo from '_images/logo.svg';
 import './app-nav.css';
 
 export const AppNav = withCollapseState(

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import { routes } from '../../../constants';
-import { Home, Grid } from '../../pages';
-import { AppNav, Footer } from '../../partials';
+import { routes } from '_constants';
+import { Home, Grid } from '_containers/pages';
+import { AppNav, Footer } from '_containers/partials';
 import './app.css';
 
 export const AppLayout = withRouter(() => (

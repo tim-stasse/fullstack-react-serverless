@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { routes } from './constants';
-import { AppLayout } from './containers';
+import { routes } from '_constants';
+import { AppLayout } from '_containers';
 
 export const RouteLayout = () => (
   <BrowserRouter>
