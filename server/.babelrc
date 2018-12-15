@@ -1,0 +1,16 @@
+{
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "targets": {
+          "node": "6.10"
+        }
+      }
+    ]
+  ],
+  "plugins": [
+    "@babel/proposal-object-rest-spread",
+    "@babel/plugin-proposal-class-properties"
+  ]
+}

@@ -1,0 +1,30 @@
+service: server
+provider:
+  name: aws
+  runtime: nodejs6.10
+  region: ap-southeast-2
+  stage: ${opt:stage, 'development'}
+functions:
+  graphql:
+    handler: src/index.graphql
+    events:
+      - http:
+          method: GET
+          cors: true
+          path: graphql
+      - http:
+          method: POST
+          cors: true
+          path: graphql
+package:
+  individually: true
+plugins:
+  - serverless-webpack
+  - serverless-offline
+custom:
+  serverless-offline:
+    port: 4000
+  webpack:
+    webpackConfig: ./config/webpack.config.js
+    includeModules: true
+    packager: "yarn"

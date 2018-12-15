@@ -1,6 +1,10 @@
 {
-  "src/**/*.{js,jsx,json,scss}": [
-    "prettier-eslint --write",
+  "client/**/*.{js,jsx,json,scss}": [
+    "prettier-eslint --list-different --prettier-last --write",
+    "git add"
+  ],
+  "server/**/*.{js,json,yml}": [
+    "prettier-eslint --list-different --prettier-last --write",
     "git add"
   ]
 }
