@@ -36,10 +36,9 @@
     "skipThirdPartyRequests": true
   },
   "scripts": {
-    "build": "run-s flow build-*",
+    "build": "build-*",
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "build-js": "react-scripts build",
-    "flow": "cd .. && yarn flow",
     "lint-staged": "lint-staged",
     "postbuild": "run-s react-snap script-generate-sw",
     "precommit": "lint-staged",
@@ -49,6 +48,6 @@
     "start": "run-p start-*",
     "start-css": "yarn build-css --watch --recursive",
     "start-js": "react-scripts start",
-    "test": "yarn flow && react-scripts test --env=jsdom"
+    "test": "react-scripts test --env=jsdom"
   }
 }

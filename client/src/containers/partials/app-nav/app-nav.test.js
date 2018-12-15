@@ -1,4 +1,3 @@
-// @flow
 import { mount } from 'enzyme';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';

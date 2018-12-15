@@ -1,4 +1,3 @@
-// @flow
 import { publicUrl } from './constants';
 
 // In production, we register a service worker to serve assets from local cache.
@@ -21,7 +20,7 @@ const isLocalhost = Boolean(
     )
 );
 
-export default function register(newContentCallback: () => void) {
+export default function register(newContentCallback) {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
     const { origin } = new URL(publicUrl, window.location);

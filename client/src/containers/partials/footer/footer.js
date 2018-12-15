@@ -1,4 +1,3 @@
-// @flow
 import getYear from 'date-fns/get_year';
 import React from 'react';
 

@@ -4,14 +4,8 @@
   "repository": "https://github.com/tim-stasse/fullstack-react-serverless.git",
   "author": "Tim Stasse <tjstasse@agiledigital.com.au>",
   "license": "MIT",
-  "devDependencies": {
-    "flow-bin": "0.81.0",
-    "flow-typed": "^2.5.1"
-  },
   "scripts": {
     "build-client": "cd ./client && yarn build",
-    "flow": "flow",
-    "flow-typed": "flow-typed",
     "start-client": "cd ./client && yarn start"
   }
 }

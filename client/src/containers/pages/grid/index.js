@@ -1,4 +1,3 @@
-// @flow
 import loadable from 'loadable-components';
 
 export const Grid = loadable(() =>

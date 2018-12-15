@@ -1,4 +1,3 @@
-// @flow
 import { loadComponents } from 'loadable-components';
 import { constant, invoke } from 'lodash/fp';
 import React from 'react';

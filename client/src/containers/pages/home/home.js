@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import logo from '../../../images/logo.svg';
 import './home.css';
