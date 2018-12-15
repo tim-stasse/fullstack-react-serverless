@@ -11,10 +11,14 @@
     "npm-run-all": "^4.1.5"
   },
   "scripts": {
+    "audit-all": "run-s audit-all-*",
+    "audit-all-client": "cd ./client && yarn audit",
+    "audit-all-self": "yarn audit",
     "build-all": "run-s build-all-*",
     "build-all-client": "cd ./client && yarn build",
-    "install-all": " yarn install && run-s install-all-*",
+    "install-all": "run-s install-all-*",
     "install-all-client": "cd ./client && yarn install",
+    "install-all-self": "yarn install",
     "lint-staged": "lint-staged",
     "start-all": "run-s start-all-*",
     "start-all-client": "cd ./client && yarn start",
