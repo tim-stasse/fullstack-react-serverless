@@ -60,6 +60,7 @@ process.on('unhandledRejection', up => {
   const missingFile = fp.flow(
     fp.keys,
     fp.filter(fp.negate(fp.endsWith('.map'))),
+    fp.reject(fp.endsWith('service-worker.js')),
     fp.map(fp.get(fp, manifest)),
     fp.find(path => sw.indexOf(path) === -1)
   )(manifest);

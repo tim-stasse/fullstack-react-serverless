@@ -1,4 +1,7 @@
-import { loadComponents } from 'loadable-components';
+import {
+  getState as getLoadableState,
+  loadComponents
+} from 'loadable-components';
 import { constant, invoke } from 'lodash/fp';
 import React from 'react';
 import { Button } from 'reactstrap';
@@ -16,6 +19,8 @@ import registerServiceWorker from './register-service-worker';
 import { configureStore } from './state/store';
 import { branchFuncs } from './utils';
 import './scss/index.css';
+
+window.snapSaveState = () => getLoadableState();
 
 const store = configureStore();
 
