@@ -14,7 +14,7 @@ import {
   applicationTitle,
   reactSnapUserAgent
 } from '_constants';
-import { configureStore } from '_state/store';
+import { createStore } from '_state';
 import { branchFuncs } from '_utils';
 import { RouteLayout } from './route-layout';
 import registerServiceWorker from './register-service-worker';
@@ -22,7 +22,7 @@ import '_scss/index.css';
 
 window.snapSaveState = () => getLoadableState();
 
-const store = configureStore();
+const store = createStore();
 
 const App = () => (
   <React.Fragment>

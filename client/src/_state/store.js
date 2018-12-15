@@ -1,11 +1,9 @@
-import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import { reducer } from 'react-redux-toastr';
+import { configureStore } from 'redux-starter-kit';
 
-const rootReducer = combineReducers({
-  toastr: reducer
-});
-
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-export const configureStore = () =>
-  createStore(rootReducer, undefined, composeEnhancers(applyMiddleware()));
+export const createStore = () =>
+  configureStore({
+    reducer: {
+      toastr: reducer
+    }
+  });
