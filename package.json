@@ -13,18 +13,22 @@
     "prettier-eslint-cli": "^4.7.1"
   },
   "scripts": {
-    "audit-all": "run-s audit-all-*",
+    "audit-all": "run-p audit-all-*",
     "audit-all-client": "cd ./client && yarn audit",
     "audit-all-self": "yarn audit",
-    "build-all": "run-s build-all-*",
+    "audit-all-server": "cd ./server && yarn audit",
+    "build-all": "run-p build-all-*",
     "build-all-client": "cd ./client && yarn build",
-    "install-all": "run-s install-all-*",
+    "build-all-server": "cd ./server && yarn package",
+    "install-all": "run-p install-all-*",
     "install-all-client": "cd ./client && yarn install",
     "install-all-self": "yarn install",
+    "install-all-server": "cd ./server && yarn install",
     "lint-staged": "lint-staged",
-    "start-all": "run-s start-all-*",
+    "start-all": "run-p start-all-*",
     "start-all-client": "cd ./client && yarn start",
-    "test-all": "run-s test-all-*",
+    "start-all-server": "cd ./server && yarn start",
+    "test-all": "run-p test-all-*",
     "test-all-client": "cd ./client && yarn test"
   }
 }

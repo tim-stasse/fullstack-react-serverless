@@ -1,6 +1,6 @@
 {
   "hooks": {
     "pre-commit": "lint-staged",
-    "pre-push": "cross-env CI=true yarn test-all"
+    "pre-push": "cross-env CI=true run-p audit-all test-all"
   }
 }
