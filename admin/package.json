@@ -1,0 +1,30 @@
+{
+  "name": "admin",
+  "version": "0.1.0",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "ra-data-json-server": "^2.5.2",
+    "react": "^16.6.3",
+    "react-admin": "^2.5.2",
+    "react-dom": "^16.6.3",
+    "react-helmet": "^5.2.0",
+    "react-scripts": "2.1.1",
+    "recompose": "^0.30.0"
+  },
+  "devDependencies": {
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.7.1"
+  },
+  "scripts": {
+    "build": "react-scripts build",
+    "start": "react-scripts start",
+    "test": "react-scripts test --env=jsdom"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
