@@ -1,9 +1,11 @@
-service: server
+service: fullstack-react-serverless-api
 provider:
   name: aws
   runtime: nodejs6.10
   region: ap-southeast-2
+  role: ApiExecutionRole
   stage: ${opt:stage, 'development'}
+
 functions:
   graphql:
     handler: src/index.graphql
@@ -16,15 +18,110 @@ functions:
           method: POST
           cors: true
           path: graphql
+
 package:
   individually: true
+
 plugins:
   - serverless-webpack
   - serverless-offline
+
 custom:
+  apiDomain:
+    default: api-${self:provider.stage}.${self:custom.topLevelDomain}
+    production: api.${self:custom.topLevelDomain}
+  apiDomainName: ${self:custom.apiDomain.${self:provider.stage}, self:custom.apiDomain.default}
+  certificateArn: ${file(./scripts/get-cert-arn.js)}
+  cloudFrontHostedZoneId: Z2FDTNDATAQYW2
   serverless-offline:
     port: 4000
+  topLevelDomain: fullstack-react-serverless.com
   webpack:
     webpackConfig: ./config/webpack.config.js
     includeModules: true
-    packager: "yarn"
+    packager: 'yarn'
+
+resources:
+  Resources:
+    ApiGatewayBasePathMapping:
+      Type: AWS::ApiGateway::BasePathMapping
+      Properties:
+        DomainName:
+          Ref: ApiGatewayDomainName
+        Stage: ${self:provider.stage}
+        RestApiId:
+          Ref: ApiGatewayRestApi
+
+    ApiGatewayDomainName:
+      Type: AWS::ApiGateway::DomainName
+      Properties:
+        CertificateArn: ${self:custom.certificateArn}
+        DomainName: ${self:custom.apiDomainName}
+
+    ApiExecutionRole:
+      Type: AWS::IAM::Role
+      Properties:
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - lambda.amazonaws.com
+              Action:
+                - sts:AssumeRole
+        Policies:
+          - PolicyName:
+              Fn::Join:
+                - '-'
+                - - development
+                  - fullstack-react-serverless-api
+                  - lambda
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - logs:CreateLogStream
+                  Resource:
+                    - Fn::Join:
+                        - ':'
+                        - - arn
+                          - Ref: 'AWS::Partition'
+                          - logs:${self:provider.region}
+                          - Ref: 'AWS::AccountId'
+                          - log-group:/aws/lambda/${self:service}-${self:provider.stage}-graphql:*
+                - Effect: 'Allow'
+                  Action:
+                    - 'logs:PutLogEvents'
+                  Resource:
+                    - Fn::Join:
+                        - ':'
+                        - - arn
+                          - Ref: 'AWS::Partition'
+                          - logs:${self:provider.region}
+                          - Ref: 'AWS::AccountId'
+                          - log-group:/aws/lambda/${self:service}-${self:provider.stage}-graphql:*:*
+        Path: '/'
+
+    Route53RecordSets:
+      Type: AWS::Route53::RecordSetGroup
+      Properties:
+        HostedZoneName: ${self:custom.topLevelDomain}.
+        RecordSets:
+          - Name: ${self:custom.apiDomainName}
+            Type: A
+            AliasTarget:
+              HostedZoneId: ${self:custom.cloudFrontHostedZoneId}
+              DNSName:
+                Fn::GetAtt:
+                  - ApiGatewayDomainName
+                  - DistributionDomainName
+          - Name: ${self:custom.apiDomainName}
+            Type: AAAA
+            AliasTarget:
+              HostedZoneId: ${self:custom.cloudFrontHostedZoneId}
+              DNSName:
+                Fn::GetAtt:
+                  - ApiGatewayDomainName
+                  - DistributionDomainName

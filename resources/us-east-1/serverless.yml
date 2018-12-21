@@ -1,0 +1,132 @@
+service: fullstack-react-serverless-resources
+provider:
+  name: aws
+  region: us-east-1
+  stage: ${opt:stage, 'development'}
+
+custom:
+  adminDomain:
+    default: admin-${self:provider.stage}.${self:custom.topLevelDomain}
+    production: admin.${self:custom.topLevelDomain}
+  adminDomainName: ${self:custom.adminDomain.${self:provider.stage}, self:custom.adminDomain.default}
+  clientDomain:
+    default: ${self:provider.stage}.${self:custom.topLevelDomain}
+    production: www.${self:custom.topLevelDomain}
+  clientDomainName: ${self:custom.clientDomain.${self:provider.stage}, self:custom.clientDomain.default}
+  cloudFrontHostedZoneId: Z2FDTNDATAQYW2
+  topLevelDomain: fullstack-react-serverless.com
+  websiteRegion: ap-southeast-2
+
+resources:
+  Resources:
+    AdminDistribution:
+      Type: AWS::CloudFront::Distribution
+      Properties:
+        DistributionConfig:
+          Aliases:
+            - ${self:custom.adminDomainName}
+          Origins:
+            - Id: S3-${self:custom.adminDomainName}
+              DomainName: ${self:custom.adminDomainName}.s3-website-${self:custom.websiteRegion}.amazonaws.com
+              CustomOriginConfig:
+                OriginProtocolPolicy: http-only
+          DefaultCacheBehavior:
+            TargetOriginId: S3-${self:custom.adminDomainName}
+            ForwardedValues:
+              QueryString: false
+            ViewerProtocolPolicy: redirect-to-https
+            Compress: true
+          CacheBehaviors:
+            - PathPattern: service-worker.js
+              TargetOriginId: S3-${self:custom.adminDomainName}
+              ForwardedValues:
+                QueryString: false
+                Headers:
+                  - "*"
+              ViewerProtocolPolicy: redirect-to-https
+              DefaultTTL: 0
+              MinTTL: 0
+              MaxTTL: 0
+          PriceClass: PriceClass_All
+          Enabled: true
+          ViewerCertificate:
+            AcmCertificateArn: ${cf:fullstack-react-serverless-production.CertificateArn}
+            SslSupportMethod: sni-only
+            MinimumProtocolVersion: TLSv1.1_2016
+          HttpVersion: http2
+          IPV6Enabled: true
+
+    ClientDistribution:
+      Type: AWS::CloudFront::Distribution
+      Properties:
+        DistributionConfig:
+          Aliases:
+            - ${self:custom.clientDomainName}
+          Origins:
+            - Id: S3-${self:custom.clientDomainName}
+              DomainName: ${self:custom.clientDomainName}.s3-website-${self:custom.websiteRegion}.amazonaws.com
+              CustomOriginConfig:
+                OriginProtocolPolicy: http-only
+          DefaultCacheBehavior:
+            TargetOriginId: S3-${self:custom.clientDomainName}
+            ForwardedValues:
+              QueryString: false
+            ViewerProtocolPolicy: redirect-to-https
+            Compress: true
+          CacheBehaviors:
+            - PathPattern: service-worker.js
+              TargetOriginId: S3-${self:custom.clientDomainName}
+              ForwardedValues:
+                QueryString: false
+                Headers:
+                  - "*"
+              ViewerProtocolPolicy: redirect-to-https
+              DefaultTTL: 0
+              MinTTL: 0
+              MaxTTL: 0
+          PriceClass: PriceClass_All
+          Enabled: true
+          ViewerCertificate:
+            AcmCertificateArn: ${cf:fullstack-react-serverless-production.CertificateArn}
+            SslSupportMethod: sni-only
+            MinimumProtocolVersion: TLSv1.1_2016
+          HttpVersion: http2
+          IPV6Enabled: true
+
+    Route53RecordSets:
+      Type: AWS::Route53::RecordSetGroup
+      Properties:
+        HostedZoneName: ${self:custom.topLevelDomain}.
+        RecordSets:
+          - Name: ${self:custom.adminDomainName}
+            Type: A
+            AliasTarget:
+              HostedZoneId: ${self:custom.cloudFrontHostedZoneId}
+              DNSName:
+                Fn::GetAtt:
+                  - AdminDistribution
+                  - DomainName
+          - Name: ${self:custom.adminDomainName}
+            Type: AAAA
+            AliasTarget:
+              HostedZoneId: ${self:custom.cloudFrontHostedZoneId}
+              DNSName:
+                Fn::GetAtt:
+                  - AdminDistribution
+                  - DomainName
+          - Name: ${self:custom.clientDomainName}
+            Type: A
+            AliasTarget:
+              HostedZoneId: ${self:custom.cloudFrontHostedZoneId}
+              DNSName:
+                Fn::GetAtt:
+                  - ClientDistribution
+                  - DomainName
+          - Name: ${self:custom.clientDomainName}
+            Type: AAAA
+            AliasTarget:
+              HostedZoneId: ${self:custom.cloudFrontHostedZoneId}
+              DNSName:
+                Fn::GetAtt:
+                  - ClientDistribution
+                  - DomainName

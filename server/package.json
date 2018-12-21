@@ -31,9 +31,8 @@
     "webpack-node-externals": "^1.7.2"
   },
   "scripts": {
-    "deploy": "env-cmd ./config/config.env.js yarn serverless deploy",
-    "package": "env-cmd ./config/config.env.js yarn serverless package",
-    "serverless": "serverless",
-    "start": "env-cmd ./config/config.env.js yarn serverless offline start"
+    "deploy": "env-cmd ./config/config.env.js yarn sls deploy",
+    "package": "env-cmd ./config/config.env.js yarn sls package",
+    "start": "env-cmd ./config/config.env.js yarn sls offline start"
   }
 }

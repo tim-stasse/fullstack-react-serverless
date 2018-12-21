@@ -1,0 +1,24 @@
+service: fullstack-react-serverless
+provider:
+  name: aws
+  region: us-east-1
+  stage: production
+
+custom:
+  domain: fullstack-react-serverless.com
+
+resources:
+  Resources:
+    Certificate:
+      Type: AWS::CertificateManager::Certificate
+      Properties:
+        DomainName: "*.${self:custom.domain}"
+        ValidationMethod: DNS
+
+  Outputs:
+    CertificateArn:
+      Description: The arn for the ssl certificate
+      Value:
+        Ref: Certificate
+      Export:
+        Name: CertificateArn
