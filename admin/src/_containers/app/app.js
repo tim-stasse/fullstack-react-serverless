@@ -6,7 +6,7 @@ import { routes } from '_constants';
 
 export const App = () => (
   <Admin
-    dataProvider={jsonServerProvider('http://jsonplaceholder.typicode.com')}>
+    dataProvider={jsonServerProvider('https://jsonplaceholder.typicode.com')}>
     {flow(
       values,
       map(resource => (
