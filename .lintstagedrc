@@ -1,4 +1,8 @@
 {
+  "admin/**/*.{js,jsx,json}": [
+    "prettier-eslint --list-different --prettier-last --write",
+    "git add"
+  ],
   "client/**/*.{js,jsx,json,scss}": [
     "prettier-eslint --list-different --prettier-last --write",
     "git add"
