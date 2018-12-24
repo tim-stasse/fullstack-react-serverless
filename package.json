@@ -5,6 +5,7 @@
   "author": "Tim Stasse <tjstasse@agiledigital.com.au>",
   "license": "MIT",
   "devDependencies": {
+    "@playlyfe/gql": "^2.6.1",
     "cross-env": "^5.2.0",
     "eslint": "5.6.0",
     "husky": "^1.2.1",
