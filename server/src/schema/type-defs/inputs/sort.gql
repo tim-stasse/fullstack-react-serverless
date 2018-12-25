@@ -1,0 +1,4 @@
+input Sort {
+  field: String!
+  order: String!
+}

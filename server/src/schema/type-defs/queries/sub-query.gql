@@ -1,3 +1,0 @@
-type SubQuery {
-  helloWorld: String!
-}

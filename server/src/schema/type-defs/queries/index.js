@@ -1,4 +1,4 @@
 import query from './query.gql';
-import subQuery from './sub-query.gql';
+import userQuery from './user-query.gql';
 
-export { query, subQuery };
+export { query, userQuery };

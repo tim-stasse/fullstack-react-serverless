@@ -1,7 +1,7 @@
 import { query } from './query';
-import { subQuery } from './sub-query';
+import { userQuery } from './user-query';
 
 export const resolvers = {
   Query: query,
-  SubQuery: subQuery
+  UserQuery: userQuery
 };

@@ -1,3 +1,5 @@
+const baseUrl = 'https://jsonplaceholder.typicode.com';
+
 export const query = {
-  subQuery: () => 'Hello'
+  user: () => `${baseUrl}/users`
 };

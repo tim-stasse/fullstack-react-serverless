@@ -1,0 +1,4 @@
+type Geo {
+  lat: String!
+  lng: String!
+}
