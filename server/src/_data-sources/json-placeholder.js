@@ -1,4 +1,4 @@
-import { constant, flow, size } from 'lodash/fp';
+import { constant, flow, getOr, size } from 'lodash/fp';
 import queryString from 'query-string';
 import fetch from 'node-fetch';
 import { branchFuncs, then } from '_utils';
@@ -21,7 +21,22 @@ export class JsonPlaceholder {
   get = (url, init) =>
     fetch(`${this.baseUrl}/${url}`, { ...init, method: 'GET' });
 
+  post = (url, body, init) =>
+    fetch(`${this.baseUrl}/${url}`, {
+      ...init,
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json',
+        ...getOr({}, 'headers', init)
+      },
+      method: 'POST'
+    });
+
   user = {
+    create: flow(
+      (id, body) => this.post(`users/${id}`, body),
+      then(this.jsonResponse(null))
+    ),
     getById: flow(
       id => this.get(`users/${id}`),
       then(this.jsonResponse(null))

@@ -1,0 +1,4 @@
+input GeoInput {
+  lat: String!
+  lng: String!
+}
