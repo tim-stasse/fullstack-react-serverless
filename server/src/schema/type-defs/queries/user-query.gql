@@ -1,3 +1,0 @@
-type UserQuery {
-  list(pagination: Pagination, sort: Sort): [User!]!
-}

@@ -1,3 +1,4 @@
 type Query {
-  user: UserQuery!
+  user(id: ID!): User
+  users(filter: Filter, pagination: Pagination, sort: Sort): [User!]!
 }
