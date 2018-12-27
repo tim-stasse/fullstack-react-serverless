@@ -1,9 +1,9 @@
+const { resolve } = require('path');
 const slsw = require('serverless-webpack');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   entry: slsw.lib.entries,
-  target: 'node',
   externals: [nodeExternals()],
   mode: process.env.WEBPACK_MODE,
   module: {
@@ -29,5 +29,9 @@ module.exports = {
         loader: 'graphql-tag/loader'
       }
     ]
-  }
+  },
+  resolve: {
+    modules: [resolve(__dirname, '../src'), 'node_modules']
+  },
+  target: 'node'
 };
