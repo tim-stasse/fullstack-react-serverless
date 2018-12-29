@@ -18,25 +18,31 @@ export class JsonPlaceholder {
       constant(url)
     );
 
-  get = (url, init) =>
-    fetch(`${this.baseUrl}/${url}`, { ...init, method: 'GET' });
+  fetch = (method, url, init) =>
+    fetch(`${this.baseUrl}/${url}`, { ...init, method });
 
-  post = (url, body, init) =>
-    fetch(`${this.baseUrl}/${url}`, {
+  fetchJson = (method, url, body, init) =>
+    this.fetch(method, url, {
       ...init,
       body: JSON.stringify(body),
       headers: {
         'Content-Type': 'application/json',
         ...getOr({}, 'headers', init)
-      },
-      method: 'POST'
+      }
     });
+
+  get = (url, init) => this.fetch('GET', url, init);
+  delete = (url, init) => this.fetch('DELETE', url, init);
+
+  post = (url, body, init) => this.fetchJson('POST', url, body, init);
+  put = (url, body, init) => this.fetchJson('PUT', url, body, init);
 
   user = {
     create: flow(
-      (id, body) => this.post(`users/${id}`, body),
+      user => this.post('users', user),
       then(this.jsonResponse(null))
     ),
+    delete: id => this.delete(`users/${id}`).then(response => response.ok),
     getById: flow(
       id => this.get(`users/${id}`),
       then(this.jsonResponse(null))
@@ -45,6 +51,10 @@ export class JsonPlaceholder {
       this.withQueryString('users'),
       this.get,
       then(this.jsonResponse([]))
+    ),
+    update: flow(
+      (id, user) => this.put(`users/${id}`, user),
+      then(this.jsonResponse(null))
     )
   };
 }
