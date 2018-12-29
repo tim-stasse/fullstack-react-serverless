@@ -1,8 +1,28 @@
+import { flow, identity, over } from 'lodash/fp';
+import { pascalCase } from '_utils';
+
+const resolvers = flow(
+  over([identity, pascalCase]),
+  ([resource, pascal]) => ({
+    [`put${pascal}`]: (_, args, context) =>
+      args[resource].id
+        ? context.dataSources.jsonPlaceholder.resources[resource].update(
+            args[resource].id,
+            args[resource]
+          )
+        : context.dataSources.jsonPlaceholder.resources[resource].create(
+            args[resource]
+          ),
+    [`delete${pascal}`]: (_, { id }, context) =>
+      context.dataSources.jsonPlaceholder.resources[resource].delete(id)
+  })
+);
+
 export const mutation = {
-  putUser: (_, { user }, context) =>
-    user.id
-      ? context.dataSources.jsonPlaceholder.user.update(user.id, user)
-      : context.dataSources.jsonPlaceholder.user.create(user),
-  deleteUser: (_, { id }, context) =>
-    context.dataSources.jsonPlaceholder.user.delete(id)
+  ...resolvers('album'),
+  ...resolvers('comment'),
+  ...resolvers('photo'),
+  ...resolvers('post'),
+  ...resolvers('todo'),
+  ...resolvers('user')
 };

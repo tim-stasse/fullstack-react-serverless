@@ -1,9 +1,9 @@
 import { assignAll, filter, flow, identity, join, over } from 'lodash/fp';
 
-export const query = {
-  user: (_, { id }, context) =>
-    context.dataSources.jsonPlaceholder.user.getById(id),
-  users: (_, args, context) =>
+const resolvers = resource => ({
+  [resource]: (_, { id }, context) =>
+    context.dataSources.jsonPlaceholder.resources[resource].getById(id),
+  [`${resource}s`]: (_, args, context) =>
     flow(
       over([
         ({ filter }) =>
@@ -19,6 +19,15 @@ export const query = {
       ]),
       filter(identity),
       assignAll,
-      context.dataSources.jsonPlaceholder.user.list
+      context.dataSources.jsonPlaceholder.resources[resource].list
     )(args)
+});
+
+export const query = {
+  ...resolvers('album'),
+  ...resolvers('comment'),
+  ...resolvers('photo'),
+  ...resolvers('post'),
+  ...resolvers('todo'),
+  ...resolvers('user')
 };

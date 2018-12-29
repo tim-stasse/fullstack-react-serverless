@@ -1,0 +1,6 @@
+input PostInput {
+  id: ID
+  title: String!
+  body: String!
+  userId: ID!
+}

@@ -1,0 +1,7 @@
+input CommentInput {
+  id: ID
+  name: String!
+  email: String!
+  body: String!
+  postId: ID!
+}

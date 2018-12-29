@@ -1,4 +1,14 @@
 type Query {
+  album(id: ID!): Album
+  albums(filter: Filter, pagination: Pagination, sort: Sort): [Album!]!
+  comment(id: ID!): Comment
+  comments(filter: Filter, pagination: Pagination, sort: Sort): [Comment!]!
+  photo(id: ID!): Photo
+  photos(filter: Filter, pagination: Pagination, sort: Sort): [Photo!]!
+  post(id: ID!): Post
+  posts(filter: Filter, pagination: Pagination, sort: Sort): [Post!]!
+  todo(id: ID!): Todo
+  todos(filter: Filter, pagination: Pagination, sort: Sort): [Todo!]!
   user(id: ID!): User
   users(filter: Filter, pagination: Pagination, sort: Sort): [User!]!
 }

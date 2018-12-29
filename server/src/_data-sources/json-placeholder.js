@@ -37,24 +37,33 @@ export class JsonPlaceholder {
   post = (url, body, init) => this.fetchJson('POST', url, body, init);
   put = (url, body, init) => this.fetchJson('PUT', url, body, init);
 
-  user = {
+  methods = url => ({
     create: flow(
-      user => this.post('users', user),
+      body => this.post(url, body),
       then(this.jsonResponse(null))
     ),
-    delete: id => this.delete(`users/${id}`).then(response => response.ok),
+    delete: id => this.delete(`${url}/${id}`).then(response => response.ok),
     getById: flow(
-      id => this.get(`users/${id}`),
+      id => this.get(`${url}/${id}`),
       then(this.jsonResponse(null))
     ),
     list: flow(
-      this.withQueryString('users'),
+      this.withQueryString(url),
       this.get,
       then(this.jsonResponse([]))
     ),
     update: flow(
-      (id, user) => this.put(`users/${id}`, user),
+      (id, body) => this.put(`${url}/${id}`, body),
       then(this.jsonResponse(null))
     )
+  });
+
+  resources = {
+    album: this.methods('albums'),
+    comment: this.methods('comments'),
+    photo: this.methods('photos'),
+    post: this.methods('posts'),
+    todo: this.methods('todos'),
+    user: this.methods('users')
   };
 }
