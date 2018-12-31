@@ -5,4 +5,7 @@ type User {
   email: String!
   phone: String!
   address: Address!
+  albums: [Album!]!
+  posts: [Post!]!
+  todos: [Todo!]!
 }

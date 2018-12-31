@@ -3,4 +3,5 @@ type Album {
   title: String!
   userId: ID!
   user: User
+  photos: [Photo!]!
 }
