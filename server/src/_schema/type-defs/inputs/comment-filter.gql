@@ -1,0 +1,8 @@
+input CommentFilter {
+  ids: [ID!]
+  id: ID
+  name: String
+  email: String
+  body: String
+  postId: ID
+}

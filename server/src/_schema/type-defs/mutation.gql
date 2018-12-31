@@ -1,14 +1,55 @@
 type Mutation {
-  putAlbum(album: AlbumInput!): Album
-  deleteAlbum(id: ID!): Boolean!
-  putComment(comment: CommentInput!): Comment
-  deleteComment(id: ID!): Boolean!
-  putPhoto(photo: PhotoInput!): Photo
-  deletePhoto(id: ID!): Boolean!
-  putPost(post: PostInput!): Post
-  deletePost(id: ID!): Boolean!
-  putTodo(todo: TodoInput!): Todo
-  deleteTodo(id: ID!): Boolean!
-  putUser(user: UserInput!): User
-  deleteUser(id: ID!): Boolean!
+  createAlbum(title: String!, userId: ID!): Album
+  updateAlbum(id: ID!, title: String!, userId: ID!): Album
+  deleteAlbum(id: ID!): Album
+  createComment(
+    name: String!
+    email: String!
+    body: String!
+    postId: ID!
+  ): Comment
+  updateComment(
+    id: ID!
+    name: String!
+    email: String!
+    body: String!
+    postId: ID!
+  ): Comment
+  deleteComment(id: ID!): Comment
+  createPhoto(
+    title: String!
+    url: String!
+    thumbnailUrl: String!
+    albumId: ID!
+  ): Photo
+  updatePhoto(
+    id: ID!
+    title: String!
+    url: String!
+    thumbnailUrl: String!
+    albumId: ID!
+  ): Photo
+  deletePhoto(id: ID!): Photo
+  createPost(title: String!, body: String!, userId: ID!): Post
+  updatePost(id: ID!, title: String!, body: String!, userId: ID!): Post
+  deletePost(id: ID!): Post
+  createTodo(title: String!, completed: Boolean!, userId: ID!): Todo
+  updateTodo(id: ID!, title: String!, completed: Boolean!, userId: ID!): Todo
+  deleteTodo(id: ID!): Todo
+  createUser(
+    name: String!
+    username: String!
+    email: String!
+    phone: String!
+    address: AddressInput!
+  ): User
+  updateUser(
+    id: ID!
+    name: String!
+    username: String!
+    email: String!
+    phone: String!
+    address: AddressInput!
+  ): User
+  deleteUser(id: ID!): User
 }

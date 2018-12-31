@@ -1,0 +1,6 @@
+input AlbumFilter {
+  ids: [ID!]
+  id: ID
+  title: String
+  userId: ID
+}

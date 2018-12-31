@@ -1,0 +1,9 @@
+input UserFilter {
+  ids: [ID!]
+  id: ID
+  name: String
+  username: String
+  email: String
+  phone: String
+  address: AddressFilter
+}

@@ -1,0 +1,7 @@
+input AddressFilter {
+  suite: String
+  street: String
+  city: String
+  zipcode: String
+  geo: GeoFilter
+}

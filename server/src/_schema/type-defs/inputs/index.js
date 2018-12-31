@@ -1,12 +1,9 @@
-import album from './album.gql';
-import comment from './comment.gql';
-import filter from './filter.gql';
-import pagination from './pagination.gql';
-import photo from './photo.gql';
-import post from './post.gql';
-import sort from './sort.gql';
-import todo from './todo.gql';
+import albumFilter from './album-filter.gql';
+import commentFilter from './comment-filter.gql';
+import photoFilter from './photo-filter.gql';
+import postFilter from './post-filter.gql';
+import todoFilter from './todo-filter.gql';
 
-export { album, comment, filter, pagination, photo, post, sort, todo };
+export { albumFilter, commentFilter, photoFilter, postFilter, todoFilter };
 
 export * from './user';

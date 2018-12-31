@@ -1,5 +1,0 @@
-input AlbumInput {
-  id: ID
-  title: String!
-  userId: ID!
-}

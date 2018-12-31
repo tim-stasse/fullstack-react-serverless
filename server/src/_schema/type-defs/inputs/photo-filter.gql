@@ -1,0 +1,8 @@
+input PhotoFilter {
+  ids: [ID!]
+  id: ID
+  title: String
+  url: String
+  thumbnailUrl: String
+  albumId: ID
+}

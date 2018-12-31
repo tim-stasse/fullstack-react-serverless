@@ -1,6 +1,0 @@
-input TodoInput {
-  id: ID
-  title: String!
-  completed: Boolean!
-  userId: ID!
-}

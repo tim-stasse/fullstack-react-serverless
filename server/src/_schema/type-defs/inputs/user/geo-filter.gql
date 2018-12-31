@@ -1,0 +1,4 @@
+input GeoFilter {
+  lat: String
+  lng: String
+}

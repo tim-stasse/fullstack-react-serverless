@@ -3,4 +3,5 @@ type Post {
   title: String!
   body: String!
   userId: ID!
+  user: User
 }

@@ -4,4 +4,5 @@ type Photo {
   url: String!
   thumbnailUrl: String!
   albumId: ID!
+  album: Album
 }

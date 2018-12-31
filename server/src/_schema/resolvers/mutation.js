@@ -1,20 +1,24 @@
 import { flow, identity, over } from 'lodash/fp';
-import { pascalCase } from '_utils';
+import { pascalCase, then } from '_utils';
 
 const resolvers = flow(
   over([identity, pascalCase]),
   ([resource, pascal]) => ({
-    [`put${pascal}`]: (_, args, context) =>
-      args[resource].id
-        ? context.dataSources.jsonPlaceholder.resources[resource].update(
-            args[resource].id,
-            args[resource]
-          )
-        : context.dataSources.jsonPlaceholder.resources[resource].create(
-            args[resource]
-          ),
-    [`delete${pascal}`]: (_, { id }, context) =>
-      context.dataSources.jsonPlaceholder.resources[resource].delete(id)
+    [`create${pascal}`]: (_, args, context) =>
+      context.dataSources.jsonPlaceholder.resources[resource].create(args),
+    [`update${pascal}`]: (_, args, context) =>
+      context.dataSources.jsonPlaceholder.resources[resource].update(
+        args.id,
+        args
+      ),
+    [`delete${pascal}`]: flow(
+      (_, { id }, context) =>
+        Promise.all([
+          context.dataSources.jsonPlaceholder.resources[resource].getById(id),
+          context.dataSources.jsonPlaceholder.resources[resource].delete(id)
+        ]),
+      then(([user]) => user)
+    )
   })
 );
 

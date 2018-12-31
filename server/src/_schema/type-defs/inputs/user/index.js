@@ -1,5 +1,7 @@
-import address from './address.gql';
-import geo from './geo.gql';
-import user from './user.gql';
+import addressFilter from './address-filter.gql';
+import addressInput from './address-input.gql';
+import geoFilter from './geo-filter.gql';
+import geoInput from './geo-input.gql';
+import userFilter from './user-filter.gql';
 
-export { address, geo, user };
+export { addressFilter, addressInput, geoFilter, geoInput, userFilter };

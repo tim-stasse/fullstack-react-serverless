@@ -1,14 +1,92 @@
 type Query {
   album(id: ID!): Album
-  albums(filter: Filter, pagination: Pagination, sort: Sort): [Album!]!
+  allAlbums(
+    page: Int
+    perPage: Int
+    sortField: String
+    sortOrder: String
+    filter: AlbumFilter
+  ): [Album!]!
+  _allAlbumsMeta(
+    page: Int
+    perPage: Int
+    sortField: String
+    sortOrder: String
+    filter: AlbumFilter
+  ): ListMetadata
   comment(id: ID!): Comment
-  comments(filter: Filter, pagination: Pagination, sort: Sort): [Comment!]!
+  allComments(
+    page: Int
+    perPage: Int
+    sortField: String
+    sortOrder: String
+    filter: CommentFilter
+  ): [Comment!]!
+  _allCommentsMeta(
+    page: Int
+    perPage: Int
+    sortField: String
+    sortOrder: String
+    filter: CommentFilter
+  ): ListMetadata
   photo(id: ID!): Photo
-  photos(filter: Filter, pagination: Pagination, sort: Sort): [Photo!]!
+  allPhotos(
+    page: Int
+    perPage: Int
+    sortField: String
+    sortOrder: String
+    filter: PhotoFilter
+  ): [Photo!]!
+  _allPhotosMeta(
+    page: Int
+    perPage: Int
+    sortField: String
+    sortOrder: String
+    filter: PhotoFilter
+  ): ListMetadata
   post(id: ID!): Post
-  posts(filter: Filter, pagination: Pagination, sort: Sort): [Post!]!
+  allPosts(
+    page: Int
+    perPage: Int
+    sortField: String
+    sortOrder: String
+    filter: PostFilter
+  ): [Post!]!
+  _allPostsMeta(
+    page: Int
+    perPage: Int
+    sortField: String
+    sortOrder: String
+    filter: PostFilter
+  ): ListMetadata
   todo(id: ID!): Todo
-  todos(filter: Filter, pagination: Pagination, sort: Sort): [Todo!]!
+  allTodos(
+    page: Int
+    perPage: Int
+    sortField: String
+    sortOrder: String
+    filter: TodoFilter
+  ): [Todo!]!
+  _allTodosMeta(
+    page: Int
+    perPage: Int
+    sortField: String
+    sortOrder: String
+    filter: TodoFilter
+  ): ListMetadata
   user(id: ID!): User
-  users(filter: Filter, pagination: Pagination, sort: Sort): [User!]!
+  allUsers(
+    page: Int
+    perPage: Int
+    sortField: String
+    sortOrder: String
+    filter: UserFilter
+  ): [User!]!
+  _allUsersMeta(
+    page: Int
+    perPage: Int
+    sortField: String
+    sortOrder: String
+    filter: UserFilter
+  ): ListMetadata
 }

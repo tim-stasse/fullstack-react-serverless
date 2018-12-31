@@ -1,0 +1,7 @@
+input PostFilter {
+  ids: [ID!]
+  id: ID
+  title: String
+  body: String
+  userId: ID
+}
