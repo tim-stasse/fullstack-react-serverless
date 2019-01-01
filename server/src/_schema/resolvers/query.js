@@ -4,6 +4,7 @@ import {
   flow,
   fromPairs,
   identity,
+  isNil,
   join,
   map,
   over,
@@ -26,10 +27,10 @@ const listResource = resource => (_, args, context) =>
             )(filter)
           : null,
       ({ page, perPage }) =>
-        page && perPage
+        !isNil(page) && !isNil(perPage)
           ? {
-              _start: (page - 1) * perPage,
-              _end: page * perPage
+              _start: page * perPage,
+              _end: (page + 1) * perPage
             }
           : null,
       ({ sortField }) => (sortField ? { _sort: sortField } : null),
@@ -44,12 +45,13 @@ const resolvers = resource => ({
   [resource]: (_, { id }, context) =>
     context.dataSources.jsonPlaceholder.resources[resource].getById(id),
   [`all${pascalCase(resource)}s`]: listResource(resource),
-  [`_all${pascalCase(resource)}sMeta`]: flow(
-    listResource(resource),
-    then(list => ({
-      count: size(list)
-    }))
-  )
+  [`_all${pascalCase(resource)}sMeta`]: (_, { filter }, context) =>
+    flow(
+      listResource(resource),
+      then(list => ({
+        count: size(list)
+      }))
+    )(_, { filter }, context)
 });
 
 export const query = {

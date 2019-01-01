@@ -1,3 +1,4 @@
+import { constant } from 'lodash/fp';
 import {
   Album as AlbumIcon,
   Book as BookIcon,
@@ -7,57 +8,96 @@ import {
   PhotoLibrary as PhotoLibraryIcon
 } from '@material-ui/icons';
 import React from 'react';
-import { Admin, EditGuesser, ListGuesser, Resource } from 'react-admin';
+import { Admin, Resource } from 'react-admin';
+import { branch, compose, lifecycle, renderNothing } from 'recompose';
 import {
+  AlbumCreate,
+  AlbumEdit,
+  AlbumList,
+  CommentCreate,
+  CommentEdit,
+  CommentList,
   Dashboard,
+  PhotoCreate,
+  PhotoEdit,
+  PhotoList,
   PostCreate,
   PostEdit,
   PostList,
+  TodoCreate,
+  TodoEdit,
+  TodoList,
+  UserCreate,
+  UserEdit,
   UserList
 } from '_containers';
-import { authProvider, dataProvider } from '_providers';
+import { authProvider, buildDataProvider } from '_providers';
 
-export const App = () => (
+export const enhance = compose(
+  lifecycle({
+    componentDidMount() {
+      buildDataProvider()
+        .then(dataProvider => this.setState({ dataProvider, loaded: true }))
+        .catch(error =>
+          this.setState({
+            dataProvider: constant({ data: [], total: 0 }),
+            error,
+            loaded: true
+          })
+        );
+    }
+  }),
+  branch(({ loaded }) => !loaded, renderNothing)
+);
+
+export const Component = ({ dataProvider, error }) => (
   <Admin
     authProvider={authProvider}
     dashboard={Dashboard}
     dataProvider={dataProvider}>
     <Resource
-      name="albums"
+      name="Album"
       icon={AlbumIcon}
-      list={ListGuesser}
-      edit={EditGuesser}
+      list={AlbumList}
+      edit={error ? undefined : AlbumEdit}
+      create={error ? undefined : AlbumCreate}
     />
     <Resource
-      name="comments"
+      name="Comment"
       icon={CommentIcon}
-      list={ListGuesser}
-      edit={EditGuesser}
+      list={CommentList}
+      edit={error ? undefined : CommentEdit}
+      create={error ? undefined : CommentCreate}
     />
     <Resource
-      name="photos"
+      name="Photo"
       icon={PhotoLibraryIcon}
-      list={ListGuesser}
-      edit={EditGuesser}
+      list={PhotoList}
+      edit={error ? undefined : PhotoEdit}
+      create={error ? undefined : PhotoCreate}
     />
     <Resource
-      name="posts"
+      name="Post"
       icon={BookIcon}
       list={PostList}
-      edit={PostEdit}
-      create={PostCreate}
+      edit={error ? undefined : PostEdit}
+      create={error ? undefined : PostCreate}
     />
     <Resource
-      name="todos"
+      name="Todo"
       icon={ListIcon}
-      list={ListGuesser}
-      edit={EditGuesser}
+      list={TodoList}
+      edit={error ? undefined : TodoEdit}
+      create={error ? undefined : TodoCreate}
     />
     <Resource
-      name="users"
+      name="User"
       icon={GroupIcon}
       list={UserList}
-      edit={EditGuesser}
+      edit={error ? undefined : UserEdit}
+      create={error ? undefined : UserCreate}
     />
   </Admin>
 );
+
+export const App = enhance(Component);

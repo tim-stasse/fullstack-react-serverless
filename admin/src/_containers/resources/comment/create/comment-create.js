@@ -8,14 +8,15 @@ import {
   TextInput
 } from 'react-admin';
 
-export const PostCreate = props => (
+export const CommentCreate = props => (
   <Create {...props}>
     <SimpleForm>
-      <ReferenceInput source="userId" reference="User">
-        <SelectInput optionValue="id" optionText="name" />
-      </ReferenceInput>
-      <TextInput source="title" />
+      <TextInput source="name" />
+      <TextInput source="email" />
       <LongTextInput source="body" />
+      <ReferenceInput source="postId" reference="Post">
+        <SelectInput optionValue="id" optionText="title" />
+      </ReferenceInput>
     </SimpleForm>
   </Create>
 );

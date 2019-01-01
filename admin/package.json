@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "license": "MIT",
   "dependencies": {
+    "graphql": "^14.0.2",
     "lodash": "^4.17.11",
-    "ra-data-json-server": "^2.5.2",
+    "pluralize": "^7.0.0",
+    "ra-data-graphql-simple": "^2.5.2",
     "react": "^16.6.3",
     "react-admin": "^2.5.2",
     "react-dom": "^16.6.3",

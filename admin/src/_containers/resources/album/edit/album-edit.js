@@ -1,21 +1,25 @@
 import React from 'react';
 import {
-  Create,
-  LongTextInput,
+  DisabledInput,
+  Edit,
   ReferenceInput,
   SelectInput,
   SimpleForm,
   TextInput
 } from 'react-admin';
 
-export const PostCreate = props => (
-  <Create {...props}>
+const AlbumTitle = ({ record }) => {
+  return <span>Album {record ? `"${record.title}"` : ''}</span>;
+};
+
+export const AlbumEdit = props => (
+  <Edit {...props} title={<AlbumTitle />}>
     <SimpleForm>
+      <DisabledInput source="id" />
+      <TextInput source="title" />
       <ReferenceInput source="userId" reference="User">
         <SelectInput optionValue="id" optionText="name" />
       </ReferenceInput>
-      <TextInput source="title" />
-      <LongTextInput source="body" />
     </SimpleForm>
-  </Create>
+  </Edit>
 );
