@@ -5,6 +5,8 @@ provider:
   region: ap-southeast-2
   role: ApiExecutionRole
   stage: ${opt:stage, 'development'}
+  environment:
+    ISS: https://cognito-idp.${self:provider.region}.amazonaws.com/${self:custom.userPoolId}
 
 functions:
   graphql:
@@ -36,6 +38,7 @@ custom:
   serverless-offline:
     port: 4000
   topLevelDomain: fullstack-react-serverless.com
+  userPoolId: ${cf:fullstack-react-serverless-resources-${self:provider.stage}.UserPoolId}
   webpack:
     webpackConfig: ./config/webpack.config.js
     includeModules: true

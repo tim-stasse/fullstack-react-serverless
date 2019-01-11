@@ -1,0 +1,19 @@
+service: fullstack-react-serverless-resources
+provider:
+  name: aws
+  region: ap-southeast-2
+  stage: ${opt:stage, 'development'}
+
+resources:
+  Resources:
+    UserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        UserPoolName: fullstack-react-serverless-${self:provider.stage}
+  Outputs:
+    UserPoolId:
+      Description: The user pool id
+      Value:
+        Ref: UserPool
+      Export:
+        Name: UserPoolId
