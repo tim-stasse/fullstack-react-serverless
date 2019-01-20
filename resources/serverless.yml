@@ -4,12 +4,70 @@ provider:
   region: ap-southeast-2
   stage: ${opt:stage, 'development'}
 
+custom:
+  adminUsername: admin
+  adminGroupName: sys-admin
+  domain: fullstack-react-serverless.com
+  sesRegion: us-east-1
+
 resources:
   Resources:
     UserPool:
       Type: AWS::Cognito::UserPool
       Properties:
         UserPoolName: fullstack-react-serverless-${self:provider.stage}
+        AutoVerifiedAttributes:
+          - email
+        EmailConfiguration:
+          SourceArn:
+            Fn::Join:
+              - ":"
+              - - arn:aws:ses:${self:custom.sesRegion}
+                - Ref: AWS::AccountId
+                - identity/no-reply@${self:custom.domain}
+
+    AdminWebClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        ClientName: AdminWebClient
+        UserPoolId:
+          Ref: UserPool
+      DependsOn: UserPool
+
+    AdminUser:
+      Type: AWS::Cognito::UserPoolUser
+      Properties:
+        Username: ${self:custom.adminUsername}
+        DesiredDeliveryMediums:
+          - EMAIL
+        UserAttributes:
+          - Name: email
+            Value: ${self:custom.adminUsername}@${self:custom.domain}
+        UserPoolId:
+          Ref: UserPool
+      DependsOn: UserPool
+
+    SysAdminGroup:
+      Type: AWS::Cognito::UserPoolGroup
+      Properties:
+        Description: System Administrator User Group
+        GroupName: ${self:custom.adminGroupName}
+        Precedence: 0
+        UserPoolId:
+          Ref: UserPool
+      DependsOn: UserPool
+
+    AdminAttachment:
+      Type: AWS::Cognito::UserPoolUserToGroupAttachment
+      Properties:
+        GroupName: ${self:custom.adminGroupName}
+        Username: ${self:custom.adminUsername}
+        UserPoolId:
+          Ref: UserPool
+      DependsOn:
+        - AdminUser
+        - SysAdminGroup
+
   Outputs:
     UserPoolId:
       Description: The user pool id
@@ -17,3 +75,9 @@ resources:
         Ref: UserPool
       Export:
         Name: UserPoolId
+    AdminWebClientId:
+      Description: The admin web client id
+      Value:
+        Ref: AdminWebClient
+      Export:
+        Name: AdminWebClientId
