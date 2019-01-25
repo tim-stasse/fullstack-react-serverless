@@ -4,6 +4,7 @@
   "license": "MIT",
   "dependencies": {
     "@aws-amplify/auth": "^1.2.15",
+    "apollo-link-context": "^1.0.12",
     "graphql": "^14.0.2",
     "lodash": "^4.17.11",
     "pluralize": "^7.0.0",
