@@ -9,6 +9,7 @@ import {
 } from '@material-ui/icons';
 import React from 'react';
 import { Admin, Resource } from 'react-admin';
+import { Route } from 'react-router-dom';
 import { branch, compose, lifecycle, renderNothing } from 'recompose';
 import {
   AlbumCreate,
@@ -18,6 +19,7 @@ import {
   CommentEdit,
   CommentList,
   Dashboard,
+  NewPassword,
   PhotoCreate,
   PhotoEdit,
   PhotoList,
@@ -31,7 +33,7 @@ import {
   UserEdit,
   UserList
 } from '_containers';
-import { authProvider, buildDataProvider } from '_providers';
+import { authProvider, buildDataProvider, i18nProvider } from '_providers';
 
 export const enhance = compose(
   lifecycle({
@@ -53,8 +55,12 @@ export const enhance = compose(
 export const Component = ({ dataProvider, error }) => (
   <Admin
     authProvider={authProvider}
+    customRoutes={[
+      <Route exact noLayout path="/new-password" component={NewPassword} />
+    ]}
     dashboard={Dashboard}
-    dataProvider={dataProvider}>
+    dataProvider={dataProvider}
+    i18nProvider={i18nProvider}>
     <Resource
       name="Album"
       icon={AlbumIcon}
