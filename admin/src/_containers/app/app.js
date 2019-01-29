@@ -15,10 +15,12 @@ import {
   AlbumCreate,
   AlbumEdit,
   AlbumList,
+  ChangePassword,
   CommentCreate,
   CommentEdit,
   CommentList,
   Dashboard,
+  Layout,
   NewPassword,
   PhotoCreate,
   PhotoEdit,
@@ -34,6 +36,7 @@ import {
   UserList
 } from '_containers';
 import { authProvider, buildDataProvider, i18nProvider } from '_providers';
+import { sagas } from '_state';
 
 export const enhance = compose(
   lifecycle({
@@ -54,10 +57,13 @@ export const enhance = compose(
 
 export const Component = ({ dataProvider, error }) => (
   <Admin
+    appLayout={Layout}
     authProvider={authProvider}
     customRoutes={[
+      <Route exact path="/change-password" component={ChangePassword} />,
       <Route exact noLayout path="/new-password" component={NewPassword} />
     ]}
+    customSagas={sagas}
     dashboard={Dashboard}
     dataProvider={dataProvider}
     i18nProvider={i18nProvider}>

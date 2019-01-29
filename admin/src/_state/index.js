@@ -1,7 +1,14 @@
-import { flow, get, identity, mapValues, pickBy } from 'lodash/fp';
+import { flow, get, identity, mapValues, pickBy, values } from 'lodash/fp';
 import * as modules from './modules';
 
-export const actions = flow(
-  mapValues(get('actions')),
-  pickBy(identity)
-)(modules);
+const mapModules = key =>
+  flow(
+    mapValues(get(key)),
+    pickBy(identity)
+  )(modules);
+
+export const actions = mapModules('actions');
+export const sagas = flow(
+  mapModules,
+  values
+)('saga');

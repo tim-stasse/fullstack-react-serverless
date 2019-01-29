@@ -5,7 +5,10 @@ const messages = {
     ...englishMessages,
     custom: {
       auth: {
-        newPassword: 'New Password'
+        changePassword: 'Change Password',
+        changePasswordError: 'Failed to change password',
+        newPassword: 'New Password',
+        oldPassword: 'Old Password'
       }
     }
   }

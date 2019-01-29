@@ -5,13 +5,12 @@ import {
   TextField
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
 import { translate } from 'ra-core';
 import React from 'react';
 import { Login } from 'react-admin';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
-import { Field, propTypes, reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { actions } from '_state';
 
 const styles = () => ({
@@ -70,12 +69,6 @@ const FormComponent = ({ classes, isLoading, handleSubmit, translate }) => (
     </CardActions>
   </form>
 );
-
-FormComponent.propTypes = {
-  ...propTypes,
-  classes: PropTypes.object,
-  redirectTo: PropTypes.string
-};
 
 const mapStateToProps = state => ({ isLoading: state.admin.loading > 0 });
 
