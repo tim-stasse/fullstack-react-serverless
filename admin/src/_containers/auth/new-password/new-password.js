@@ -5,12 +5,12 @@ import {
   TextField
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import { translate } from 'ra-core';
 import React from 'react';
-import { Login } from 'react-admin';
+import { Login, translate } from 'react-admin';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import { Field, reduxForm } from 'redux-form';
+import { forms } from '_constants';
 import { actions } from '_state';
 
 const styles = () => ({
@@ -50,7 +50,7 @@ const FormComponent = ({ classes, isLoading, handleSubmit, translate }) => (
           id="password"
           name="newPassword"
           component={renderInput}
-          label={translate('custom.auth.newPassword')}
+          label={translate('auth.newPassword')}
           type="password"
           disabled={isLoading}
         />
@@ -63,8 +63,11 @@ const FormComponent = ({ classes, isLoading, handleSubmit, translate }) => (
         color="primary"
         disabled={isLoading}
         className={classes.button}>
-        {isLoading && <CircularProgress size={25} thickness={2} />}
-        {translate('ra.auth.sign_in')}
+        {isLoading ? (
+          <CircularProgress size={25} thickness={2} />
+        ) : (
+          translate('ra.auth.sign_in')
+        )}
       </Button>
     </CardActions>
   </form>
@@ -77,7 +80,7 @@ const enhance = compose(
   translate,
   connect(mapStateToProps),
   reduxForm({
-    form: 'newPassword',
+    form: forms.newPassword,
     validate: (values, props) => {
       const errors = {};
       const { translate } = props;

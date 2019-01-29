@@ -9,6 +9,7 @@ import {
 } from 'react-admin';
 import { LOCATION_CHANGE, push } from 'react-router-redux';
 import { call, put, race, take } from 'redux-saga/effects';
+import { routes } from '_constants';
 import { actions } from '_state';
 import { branchFuncs } from '_utils';
 
@@ -19,13 +20,14 @@ export function* authProvider(authEvent, params) {
       const user = yield call([Auth, Auth.signIn], username, password);
 
       if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
-        yield put(push('/new-password'));
+        yield put(push(routes.auth.newPassword));
         yield put({ type: FETCH_END });
 
         const { completeNewPassword, locationChange } = yield race({
           locationChange: take(
             ({ type, payload }) =>
-              type === LOCATION_CHANGE && payload.pathname !== '/new-password'
+              type === LOCATION_CHANGE &&
+              payload.pathname !== routes.auth.newPassword
           ),
           completeNewPassword: take(
             ({ type }) => type === actions.auth.completeNewPassword.toString()

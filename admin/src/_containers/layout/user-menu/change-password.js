@@ -8,6 +8,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { compose } from 'recompose';
+import { routes } from '_constants';
 
 const styles = theme => ({
   menuItem: {
@@ -46,7 +47,7 @@ const Component = ({
     <span className={classes.iconMenuPaddingStyle}>
       <Icon />
     </span>
-    {translate('custom.auth.changePassword')}
+    {translate('auth.changePassword')}
   </MenuItem>
 );
 
@@ -55,7 +56,7 @@ const mapStateToProps = ({ theme }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  changePassword: () => dispatch(push('/change-password'))
+  changePassword: () => dispatch(push(routes.auth.changePassword))
 });
 
 const enhance = compose(

@@ -1,4 +1,4 @@
-import { constant } from 'lodash/fp';
+import { constant, flow, get, map, values } from 'lodash/fp';
 import {
   Album as AlbumIcon,
   Book as BookIcon,
@@ -11,32 +11,19 @@ import React from 'react';
 import { Admin, Resource } from 'react-admin';
 import { Route } from 'react-router-dom';
 import { branch, compose, lifecycle, renderNothing } from 'recompose';
-import {
-  AlbumCreate,
-  AlbumEdit,
-  AlbumList,
-  ChangePassword,
-  CommentCreate,
-  CommentEdit,
-  CommentList,
-  Dashboard,
-  Layout,
-  NewPassword,
-  PhotoCreate,
-  PhotoEdit,
-  PhotoList,
-  PostCreate,
-  PostEdit,
-  PostList,
-  TodoCreate,
-  TodoEdit,
-  TodoList,
-  UserCreate,
-  UserEdit,
-  UserList
-} from '_containers';
+import { resources, routes } from '_constants';
+import * as containers from '_containers';
 import { authProvider, buildDataProvider, i18nProvider } from '_providers';
 import { sagas } from '_state';
+
+const icons = {
+  Album: AlbumIcon,
+  Post: BookIcon,
+  Comment: CommentIcon,
+  User: GroupIcon,
+  Todo: ListIcon,
+  Photo: PhotoLibraryIcon
+};
 
 export const enhance = compose(
   lifecycle({
@@ -57,58 +44,38 @@ export const enhance = compose(
 
 export const Component = ({ dataProvider, error }) => (
   <Admin
-    appLayout={Layout}
+    appLayout={containers.Layout}
     authProvider={authProvider}
     customRoutes={[
-      <Route exact path="/change-password" component={ChangePassword} />,
-      <Route exact noLayout path="/new-password" component={NewPassword} />
+      <Route
+        exact
+        path={routes.auth.changePassword}
+        component={containers.ChangePassword}
+      />,
+      <Route
+        exact
+        noLayout
+        path={routes.auth.newPassword}
+        component={containers.NewPassword}
+      />
     ]}
     customSagas={sagas}
-    dashboard={Dashboard}
+    dashboard={containers.Dashboard}
     dataProvider={dataProvider}
     i18nProvider={i18nProvider}>
-    <Resource
-      name="Album"
-      icon={AlbumIcon}
-      list={AlbumList}
-      edit={error ? undefined : AlbumEdit}
-      create={error ? undefined : AlbumCreate}
-    />
-    <Resource
-      name="Comment"
-      icon={CommentIcon}
-      list={CommentList}
-      edit={error ? undefined : CommentEdit}
-      create={error ? undefined : CommentCreate}
-    />
-    <Resource
-      name="Photo"
-      icon={PhotoLibraryIcon}
-      list={PhotoList}
-      edit={error ? undefined : PhotoEdit}
-      create={error ? undefined : PhotoCreate}
-    />
-    <Resource
-      name="Post"
-      icon={BookIcon}
-      list={PostList}
-      edit={error ? undefined : PostEdit}
-      create={error ? undefined : PostCreate}
-    />
-    <Resource
-      name="Todo"
-      icon={ListIcon}
-      list={TodoList}
-      edit={error ? undefined : TodoEdit}
-      create={error ? undefined : TodoCreate}
-    />
-    <Resource
-      name="User"
-      icon={GroupIcon}
-      list={UserList}
-      edit={error ? undefined : UserEdit}
-      create={error ? undefined : UserCreate}
-    />
+    {flow(
+      values,
+      map(resource => (
+        <Resource
+          key={resource}
+          name={resource}
+          icon={get(resource)(icons)}
+          list={get(`${resource}List`)(containers)}
+          edit={error ? undefined : get(`${resource}Edit`)(containers)}
+          create={error ? undefined : get(`${resource}Create`)(containers)}
+        />
+      ))
+    )(resources)}
   </Admin>
 );
 

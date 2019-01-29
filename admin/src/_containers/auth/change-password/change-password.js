@@ -13,6 +13,7 @@ import { Title } from 'react-admin';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import { Field, reduxForm } from 'redux-form';
+import { forms } from '_constants';
 import { actions } from '_state';
 
 const styles = () => ({
@@ -55,7 +56,7 @@ const Component = ({ classes, isLoading, handleSubmit, translate }) => (
               id="old-password"
               name="oldPassword"
               component={renderInput}
-              label={translate('custom.auth.oldPassword')}
+              label={translate('auth.oldPassword')}
               type="password"
               disabled={isLoading}
             />
@@ -65,7 +66,7 @@ const Component = ({ classes, isLoading, handleSubmit, translate }) => (
               id="new-password"
               name="newPassword"
               component={renderInput}
-              label={translate('custom.auth.newPassword')}
+              label={translate('auth.newPassword')}
               type="password"
               disabled={isLoading}
             />
@@ -78,8 +79,11 @@ const Component = ({ classes, isLoading, handleSubmit, translate }) => (
             color="primary"
             disabled={isLoading}
             className={classes.button}>
-            {isLoading && <CircularProgress size={25} thickness={2} />}
-            {translate('custom.auth.changePassword')}
+            {isLoading ? (
+              <CircularProgress size={25} thickness={2} />
+            ) : (
+              translate('auth.changePassword')
+            )}
           </Button>
         </CardActions>
       </form>
@@ -94,7 +98,7 @@ const enhance = compose(
   translate,
   connect(mapStateToProps),
   reduxForm({
-    form: 'changePassword',
+    form: forms.changePassword,
     validate: (values, props) => {
       const errors = {};
       const { translate } = props;
