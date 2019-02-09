@@ -22,6 +22,13 @@ const styles = () => ({
   },
   button: {
     width: '100%'
+  },
+  forgotPassword: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    paddingTop: '1rem',
+    paddingBottom: '1rem'
   }
 });
 
@@ -39,19 +46,19 @@ const renderInput = ({
   />
 );
 
-const completeNewPassword = ({ newPassword }, dispatch) =>
-  dispatch(actions.auth.completeNewPassword(newPassword));
+const login = ({ username }, dispatch) =>
+  dispatch(actions.auth.forgotPassword(username));
 
 const FormComponent = ({ classes, isLoading, handleSubmit, translate }) => (
-  <form onSubmit={handleSubmit(completeNewPassword)}>
+  <form onSubmit={handleSubmit(login)}>
     <div className={classes.form}>
       <div className={classes.input}>
         <Field
-          id="password"
-          name="newPassword"
+          autoFocus
+          id="username"
+          name="username"
           component={renderInput}
-          label={translate('auth.newPassword')}
-          type="password"
+          label={translate('ra.auth.username')}
           disabled={isLoading}
         />
       </div>
@@ -66,7 +73,7 @@ const FormComponent = ({ classes, isLoading, handleSubmit, translate }) => (
         {isLoading ? (
           <CircularProgress size={25} thickness={2} />
         ) : (
-          translate('ra.auth.sign_in')
+          translate('form.submit')
         )}
       </Button>
     </CardActions>
@@ -80,12 +87,12 @@ const enhance = compose(
   translate,
   connect(mapStateToProps),
   reduxForm({
-    form: forms.newPassword,
+    form: forms.forgotPassword,
     validate: (values, props) => {
       const errors = {};
       const { translate } = props;
-      if (!values.password) {
-        errors.password = translate('ra.validation.required');
+      if (!values.username) {
+        errors.username = translate('ra.validation.required');
       }
 
       return errors;
@@ -93,5 +100,7 @@ const enhance = compose(
   })
 );
 
-export const NewPasswordForm = enhance(FormComponent);
-export const NewPassword = () => <Login loginForm={<NewPasswordForm />} />;
+export const ForgotPasswordForm = enhance(FormComponent);
+export const ForgotPassword = () => (
+  <Login loginForm={<ForgotPasswordForm />} />
+);

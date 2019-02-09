@@ -7,7 +7,7 @@ import {
   TextField
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import { isEmpty } from 'lodash/fp';
+import { isEmpty, negate } from 'lodash/fp';
 import { translate } from 'ra-core';
 import React from 'react';
 import { Title } from 'react-admin';
@@ -44,37 +44,45 @@ const renderInput = ({
   />
 );
 
-const changePassword = ({ oldPassword, newPassword }, dispatch) =>
-  dispatch(actions.auth.changePassword(oldPassword, newPassword));
+const verifyEmailSubmit = ({ verificationCode }, dispatch) =>
+  dispatch(actions.auth.verifyUserAttributeSubmit('email', verificationCode));
 
-const Component = ({ classes, isLoading, handleSubmit, translate }) => (
+const Component = ({
+  classes,
+  isLoading,
+  handleSubmit,
+  translate,
+  verifyEmail
+}) => (
   <Card>
-    <Title title="Change Password" />
+    <Title title="Verify Email" />
     <CardContent>
-      <form onSubmit={handleSubmit(changePassword)}>
+      <form onSubmit={handleSubmit(verifyEmailSubmit)}>
         <div className={classes.form}>
           <div className={classes.input}>
             <Field
-              id="old-password"
-              name="oldPassword"
+              id="verification-code"
+              name="verificationCode"
               component={renderInput}
-              label={translate('auth.oldPassword')}
-              type="password"
-              disabled={isLoading}
-            />
-          </div>
-          <div className={classes.input}>
-            <Field
-              id="new-password"
-              name="newPassword"
-              component={renderInput}
-              label={translate('auth.newPassword')}
-              type="password"
+              label={translate('auth.verificationCode')}
+              type="text"
               disabled={isLoading}
             />
           </div>
         </div>
         <CardActions>
+          <Button
+            variant="raised"
+            color="primary"
+            disabled={isLoading}
+            className={classes.button}
+            onClick={verifyEmail}>
+            {isLoading ? (
+              <CircularProgress size={25} thickness={2} />
+            ) : (
+              translate('auth.resendCode')
+            )}
+          </Button>
           <Button
             variant="raised"
             type="submit"
@@ -84,7 +92,7 @@ const Component = ({ classes, isLoading, handleSubmit, translate }) => (
             {isLoading ? (
               <CircularProgress size={25} thickness={2} />
             ) : (
-              translate('auth.changePassword')
+              translate('auth.verifyEmail')
             )}
           </Button>
         </CardActions>
@@ -98,29 +106,36 @@ const mapStateToProps = ({ admin, ...state }) => ({
   verifiedEmail: selectors.auth.verifiedEmail(state)
 });
 
+const mapDispatchToProps = dispatch => ({
+  verifyEmail: () => dispatch(actions.auth.verifyUserAttribute('email'))
+});
+
 const enhance = compose(
   withStyles(styles),
   translate,
-  connect(mapStateToProps),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
   reduxForm({
-    form: forms.changePassword,
+    form: forms.verifyEmail,
     validate: (values, props) => {
       const errors = {};
       const { translate } = props;
-      if (!values.oldPassword) {
-        errors.oldPassword = translate('ra.validation.required');
-      }
-      if (!values.newPassword) {
-        errors.newPassword = translate('ra.validation.required');
+      if (!values.verificationCode) {
+        errors.verificationCode = translate('ra.validation.required');
       }
 
       return errors;
     }
   }),
   branch(
-    ({ verifiedEmail }) => isEmpty(verifiedEmail),
-    renderComponent(() => <Redirect to={routes.auth.verifyEmail} />)
+    ({ verifiedEmail }) =>
+      console.log(verifiedEmail) || negate(isEmpty)(verifiedEmail),
+    renderComponent(
+      () => console.log('redirect') || <Redirect to={routes.dashboard} />
+    )
   )
 );
 
-export const ChangePassword = enhance(Component);
+export const VerifyEmail = enhance(Component);

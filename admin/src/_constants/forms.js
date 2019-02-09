@@ -1,4 +1,8 @@
 export const forms = {
   changePassword: 'changePassword',
-  newPassword: 'newPassword'
+  forgotPassword: 'forgotPassword',
+  login: 'login',
+  newPassword: 'newPassword',
+  resetPassword: 'resetPassword',
+  verifyEmail: 'verifyEmail'
 };

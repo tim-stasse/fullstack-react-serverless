@@ -12,9 +12,19 @@ import { Admin, Resource } from 'react-admin';
 import { Route } from 'react-router-dom';
 import { branch, compose, lifecycle, renderNothing } from 'recompose';
 import { resources, routes } from '_constants';
-import * as containers from '_containers';
+import {
+  ChangePassword,
+  ForgotPassword,
+  Login,
+  NewPassword,
+  ResetPassword,
+  VerifyEmail
+} from '_containers/auth';
+import { Dashboard } from '_containers/dashboard';
+import { Layout } from '_containers/layout';
+import * as Resources from '_containers/resources';
 import { authProvider, buildDataProvider, i18nProvider } from '_providers';
-import { sagas } from '_state';
+import { reducers, sagas } from '_state';
 
 const icons = {
   Album: AlbumIcon,
@@ -44,25 +54,40 @@ export const enhance = compose(
 
 export const Component = ({ dataProvider, error }) => (
   <Admin
-    appLayout={containers.Layout}
+    appLayout={Layout}
     authProvider={authProvider}
+    customReducers={reducers}
     customRoutes={[
       <Route
         exact
         path={routes.auth.changePassword}
-        component={containers.ChangePassword}
+        component={ChangePassword}
+      />,
+      <Route
+        exact
+        noLayout
+        path={routes.auth.forgotPassword}
+        component={ForgotPassword}
       />,
       <Route
         exact
         noLayout
         path={routes.auth.newPassword}
-        component={containers.NewPassword}
-      />
+        component={NewPassword}
+      />,
+      <Route
+        exact
+        noLayout
+        path={routes.auth.resetPassword}
+        component={ResetPassword}
+      />,
+      <Route exact path={routes.auth.verifyEmail} component={VerifyEmail} />
     ]}
     customSagas={sagas}
-    dashboard={containers.Dashboard}
+    dashboard={Dashboard}
     dataProvider={dataProvider}
-    i18nProvider={i18nProvider}>
+    i18nProvider={i18nProvider}
+    loginPage={Login}>
     {flow(
       values,
       map(resource => (
@@ -70,9 +95,9 @@ export const Component = ({ dataProvider, error }) => (
           key={resource}
           name={resource}
           icon={get(resource)(icons)}
-          list={get(`${resource}List`)(containers)}
-          edit={error ? undefined : get(`${resource}Edit`)(containers)}
-          create={error ? undefined : get(`${resource}Create`)(containers)}
+          list={get(`${resource}List`)(Resources)}
+          edit={error ? undefined : get(`${resource}Edit`)(Resources)}
+          create={error ? undefined : get(`${resource}Create`)(Resources)}
         />
       ))
     )(resources)}

@@ -6,12 +6,13 @@ import {
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import React from 'react';
-import { Login, translate } from 'react-admin';
+import { Login as AdminLogin, translate, userLogin } from 'react-admin';
 import { connect } from 'react-redux';
+import { Link as RouterLink } from 'react-router-dom';
 import { compose } from 'recompose';
 import { Field, reduxForm } from 'redux-form';
-import { forms } from '_constants';
-import { actions } from '_state';
+import { Link } from '_components';
+import { forms, routes } from '_constants';
 
 const styles = () => ({
   form: {
@@ -22,6 +23,13 @@ const styles = () => ({
   },
   button: {
     width: '100%'
+  },
+  forgotPassword: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    paddingTop: '1rem',
+    paddingBottom: '1rem'
   }
 });
 
@@ -39,18 +47,28 @@ const renderInput = ({
   />
 );
 
-const completeNewPassword = ({ newPassword }, dispatch) =>
-  dispatch(actions.auth.completeNewPassword(newPassword));
+const login = (auth, dispatch, { redirectTo }) =>
+  dispatch(userLogin(auth, redirectTo));
 
 const FormComponent = ({ classes, isLoading, handleSubmit, translate }) => (
-  <form onSubmit={handleSubmit(completeNewPassword)}>
+  <form onSubmit={handleSubmit(login)}>
     <div className={classes.form}>
       <div className={classes.input}>
         <Field
-          id="password"
-          name="newPassword"
+          autoFocus
+          id="username"
+          name="username"
           component={renderInput}
-          label={translate('auth.newPassword')}
+          label={translate('ra.auth.username')}
+          disabled={isLoading}
+        />
+      </div>
+      <div className={classes.input}>
+        <Field
+          id="password"
+          name="password"
+          component={renderInput}
+          label={translate('ra.auth.password')}
           type="password"
           disabled={isLoading}
         />
@@ -70,6 +88,11 @@ const FormComponent = ({ classes, isLoading, handleSubmit, translate }) => (
         )}
       </Button>
     </CardActions>
+    <div className={classes.forgotPassword}>
+      <Link component={RouterLink} to={routes.auth.forgotPassword}>
+        {translate('auth.forgotPassword')}
+      </Link>
+    </div>
   </form>
 );
 
@@ -80,10 +103,13 @@ const enhance = compose(
   translate,
   connect(mapStateToProps),
   reduxForm({
-    form: forms.newPassword,
+    form: forms.login,
     validate: (values, props) => {
       const errors = {};
       const { translate } = props;
+      if (!values.username) {
+        errors.username = translate('ra.validation.required');
+      }
       if (!values.password) {
         errors.password = translate('ra.validation.required');
       }
@@ -93,5 +119,5 @@ const enhance = compose(
   })
 );
 
-export const NewPasswordForm = enhance(FormComponent);
-export const NewPassword = () => <Login loginForm={<NewPasswordForm />} />;
+export const LoginForm = enhance(FormComponent);
+export const Login = () => <AdminLogin loginForm={<LoginForm />} />;

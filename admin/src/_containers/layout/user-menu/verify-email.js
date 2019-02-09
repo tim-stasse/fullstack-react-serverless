@@ -1,8 +1,8 @@
 import { MenuItem } from '@material-ui/core';
-import { LockOpen as Icon } from '@material-ui/icons';
+import { Email as Icon } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
-import { isEmpty, over } from 'lodash/fp';
+import { isEmpty, negate, over } from 'lodash/fp';
 import React from 'react';
 import { translate } from 'react-admin';
 import { connect } from 'react-redux';
@@ -39,17 +39,17 @@ const Component = ({
   className,
   onClick,
   translate,
-  changePassword,
+  verifyEmail,
   ...rest
 }) => (
   <MenuItem
-    className={classnames('changePassword', classes.menuItem, className)}
-    onClick={over([changePassword, onClick])}
+    className={classnames('verifyEmail', classes.menuItem, className)}
+    onClick={over([verifyEmail, onClick])}
     {...sanitizeRestProps(rest)}>
     <span className={classes.iconMenuPaddingStyle}>
       <Icon />
     </span>
-    {translate('auth.changePassword')}
+    {translate('auth.verifyEmail')}
   </MenuItem>
 );
 
@@ -59,7 +59,7 @@ const mapStateToProps = ({ theme, ...state }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  changePassword: () => dispatch(push(routes.auth.changePassword))
+  verifyEmail: () => dispatch(push(routes.auth.verifyEmail))
 });
 
 const enhance = compose(
@@ -69,7 +69,7 @@ const enhance = compose(
     mapDispatchToProps
   ),
   withStyles(styles),
-  branch(({ verifiedEmail }) => isEmpty(verifiedEmail), renderNothing)
+  branch(({ verifiedEmail }) => negate(isEmpty)(verifiedEmail), renderNothing)
 );
 
-export const ChangePassword = enhance(Component);
+export const VerifyEmail = enhance(Component);

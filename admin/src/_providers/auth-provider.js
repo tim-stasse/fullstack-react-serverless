@@ -15,7 +15,7 @@ import { branchFuncs } from '_utils';
 
 export function* authProvider(authEvent, params) {
   switch (authEvent) {
-    case AUTH_LOGIN:
+    case AUTH_LOGIN: {
       const { username, password } = params;
       const user = yield call([Auth, Auth.signIn], username, password);
 
@@ -24,13 +24,13 @@ export function* authProvider(authEvent, params) {
         yield put({ type: FETCH_END });
 
         const { completeNewPassword, locationChange } = yield race({
+          completeNewPassword: take(
+            ({ type }) => type === actions.auth.completeNewPassword.toString()
+          ),
           locationChange: take(
             ({ type, payload }) =>
               type === LOCATION_CHANGE &&
               payload.pathname !== routes.auth.newPassword
-          ),
-          completeNewPassword: take(
-            ({ type }) => type === actions.auth.completeNewPassword.toString()
           )
         });
 
@@ -46,18 +46,27 @@ export function* authProvider(authEvent, params) {
       }
 
       return user;
-    case AUTH_LOGOUT:
+    }
+    case AUTH_LOGOUT: {
       return yield call([Auth, Auth.signOut]);
-    case AUTH_ERROR:
+    }
+    case AUTH_ERROR: {
       return yield call(
         branchFuncs,
         ({ status }) => status === 401 || status === 403,
         Auth.signOut.bind(Auth),
         noop
       );
-    case AUTH_CHECK:
-      return yield call([Auth, Auth.currentAuthenticatedUser]);
-    default:
+    }
+    case AUTH_CHECK: {
+      const user = yield call([Auth, Auth.currentAuthenticatedUser]);
+
+      yield put(actions.auth.verifiedContact());
+
+      return user;
+    }
+    default: {
       throw new Error('Unknown auth event');
+    }
   }
 }
